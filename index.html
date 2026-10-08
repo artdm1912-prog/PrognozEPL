@@ -27,7 +27,6 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    /* Масштаб увеличен на 20% */
     body {
       background-color: var(--bg);
       color: var(--text);
@@ -158,10 +157,6 @@
 
     .btn-calc:hover {
       background: var(--accent-hover);
-    }
-
-    .btn-calc:active {
-      transform: scale(0.99);
     }
 
     .score-card {
@@ -492,8 +487,8 @@
       },
       {
         home: "Челси", away: "Борнмут",
-        home_stats: {xg: 1.75, sot: 5.0, goals: 1.8, sh: 13.8, cr: 5.6},
-        away_stats: {xg: 1.15, sot: 3.6, goals: 1.0, sh: 10.2, cr: 4.1}
+        home_stats: {xg: 1.85, sot: 5.2, goals: 2.0, sh: 14.4, cr: 6.8},
+        away_stats: {xg: 1.20, sot: 5.2, goals: 1.0, sh: 13.6, cr: 4.2}
       },
       {
         home: "Астон Вилла", away: "Брентфорд",
@@ -557,15 +552,15 @@
         defaultMod: -5
       },
       "Борнмут": {
-        out: "Джастин Клюйверт (пах), Алекс Скотт (колено), Хулиан Араухо (бедро).",
+        out: "Джастин Клюйверт (пах), Алекс Скотт (колено), Хулиан Араухо (бедро), Эли Крупи.",
         in: "Маркус Тавернье, Антуан Семеньо.",
-        impact: "Потеря созидателей срезает потенциал на «Стэмфорд Бридж» (-12% к xScore).",
+        impact: "Потеря ключевых созидателей срезает потенциал на «Стэмфорд Бридж» (-12% к xScore).",
         defaultMod: -12
       },
       "Астон Вилла": {
-        out: "Бубакар Камара (колено), Тайрон Мингз (набор формы).",
+        out: "Бубакар Камара (колено), Тайрон Мингз (набор кондиций).",
         in: "Олли Уоткинс, Морган Роджерс, Эмилиано Мартинес.",
-        impact: "Ударная атака в строю, но микроротация опорников держит поправку на уровне -4%.",
+        impact: "Ударная атака в строю, микроротация опорников держит поправку на уровне -4%.",
         defaultMod: -4
       },
       "Брентфорд": {
@@ -635,27 +630,27 @@
         defaultMod: -5
       },
       "Ливерпуль": {
-        out: "Харви Эллиотт (стопа), легкие мышечные спазмы у крайних защитников.",
+        out: "Харви Эллиотт (стопа), микроповреждения фланговых защитников.",
         in: "Алексис Мак Аллистер, Мохамед Салах, Луис Диас, Вирджил ван Дейк.",
-        impact: "Оптимальный стартовый костяк в атаке на «Энфилде» (-3% к защите).",
+        impact: "Оптимальный атакующий костяк на «Энфилде» (-3% к защите).",
         defaultMod: -3
       },
       "Манчестер Сити": {
         out: "Родри (набор формы), Натан Аке (мышечное повреждение).",
         in: "Эрлинг Холанн, Кевин Де Брёйне, Фил Фоден, Бернарду Силва.",
-        impact: "Высокая результативность, но уязвимость в опорной зоне перед контратаками (-4%).",
+        impact: "Высокая результативность, но уязвимость опорной зоны (-4%).",
         defaultMod: -4
       },
       "Ковентри Сити": {
         out: "Бен Шиф (икра), Тацухиро Сакамото (бедро).",
         in: "Эллис Симмс, Хаджи Райт, Милан ван Эвейк.",
-        impact: "Тяжелый график, ставка на плотный блок у своих ворот (-10%).",
+        impact: "Тяжелый календарь, ставка на плотный блок у своих ворот (-10%).",
         defaultMod: -10
       },
       "Ньюкасл": {
         out: "Свен Ботман (колено), Джамаал Ласселлс (колено).",
         in: "Александр Исак, Энтони Гордон, Бруно Гимарайнс.",
-        impact: "Исак и Гордон дают ураганный темп на контратаках (-4%).",
+        impact: "Исак и Гордон дают высокий темп на выезде (-4%).",
         defaultMod: -4
       }
     };
@@ -671,30 +666,32 @@
       if (isNaN(idx) || !MATCHES_DATA[idx]) return;
 
       const m = MATCHES_DATA[idx];
+      
+      // Обновляем названия
       document.getElementById('homeTeam').value = m.home;
       document.getElementById('awayTeam').value = m.away;
 
-      if (m.home_stats) {
-        document.getElementById('home_xg').value = m.home_stats.xg;
-        document.getElementById('home_sot').value = m.home_stats.sot;
-        document.getElementById('home_goals').value = m.home_stats.goals;
-        document.getElementById('home_sh').value = m.home_stats.sh;
-        document.getElementById('home_cr').value = m.home_stats.cr;
-      }
+      // Обновляем метрики хозяев
+      document.getElementById('home_xg').value = Number(m.home_stats.xg).toFixed(2);
+      document.getElementById('home_sot').value = Number(m.home_stats.sot).toFixed(1);
+      document.getElementById('home_goals').value = Number(m.home_stats.goals).toFixed(1);
+      document.getElementById('home_sh').value = Number(m.home_stats.sh).toFixed(1);
+      document.getElementById('home_cr').value = Number(m.home_stats.cr).toFixed(1);
 
-      if (m.away_stats) {
-        document.getElementById('away_xg').value = m.away_stats.xg;
-        document.getElementById('away_sot').value = m.away_stats.sot;
-        document.getElementById('away_goals').value = m.away_stats.goals;
-        document.getElementById('away_sh').value = m.away_stats.sh;
-        document.getElementById('away_cr').value = m.away_stats.cr;
-      }
+      // Обновляем метрики гостей
+      document.getElementById('away_xg').value = Number(m.away_stats.xg).toFixed(2);
+      document.getElementById('away_sot').value = Number(m.away_stats.sot).toFixed(1);
+      document.getElementById('away_goals').value = Number(m.away_stats.goals).toFixed(1);
+      document.getElementById('away_sh').value = Number(m.away_stats.sh).toFixed(1);
+      document.getElementById('away_cr').value = Number(m.away_stats.cr).toFixed(1);
 
-      const homeSquad = SQUAD_DATABASE[m.home];
-      const awaySquad = SQUAD_DATABASE[m.away];
-      document.getElementById('home_mod').value = homeSquad ? homeSquad.defaultMod : 0;
-      document.getElementById('away_mod').value = awaySquad ? awaySquad.defaultMod : 0;
+      // Модификаторы составов
+      const homeSquad = SQUAD_DATABASE[m.home] || { defaultMod: 0 };
+      const awaySquad = SQUAD_DATABASE[m.away] || { defaultMod: 0 };
+      document.getElementById('home_mod').value = homeSquad.defaultMod;
+      document.getElementById('away_mod').value = awaySquad.defaultMod;
 
+      // Принудительный расчет всех 5 блоков
       calculateAll();
     }
 
@@ -716,7 +713,7 @@
       const h_mod = parseFloat(document.getElementById('home_mod').value) || 0;
       const a_mod = parseFloat(document.getElementById('away_mod').value) || 0;
 
-      // 5-факторная формула
+      // 5-факторная формула Пуассона
       const h_base = (h_xg * 0.35) + ((h_sot * 0.38) * 0.25) + (h_g * 0.20) + ((h_sh * 0.14) * 0.10) + ((h_cr * 0.34) * 0.10);
       const a_base = (a_xg * 0.35) + ((a_sot * 0.28) * 0.25) + (a_g * 0.20) + ((a_sh * 0.09) * 0.10) + ((a_cr * 0.23) * 0.10);
 
@@ -728,7 +725,7 @@
       const modHScore = Math.round(h_mod_val);
       const modAScore = Math.round(a_mod_val);
 
-      // Обновление Блока 2
+      // БЛОК 2: Счёт
       document.getElementById('baseScore').textContent = `${baseHScore} : ${baseAScore}`;
       document.getElementById('baseXScore').textContent = `${h_base.toFixed(2)} : ${a_base.toFixed(2)}`;
       document.getElementById('modScore').textContent = `${modHScore} : ${modAScore}`;
@@ -738,26 +735,26 @@
       document.getElementById('sumXScore').textContent = sumMod.toFixed(2);
 
       let verdict = '';
-      if (sumMod >= 3.3) verdict = 'Ярко выраженный ТБ (2.5) / ТБ (3.0)';
+      if (sumMod >= 3.2) verdict = 'Ярко выраженный ТБ (2.5) / ТБ (3.0)';
       else if (sumMod >= 2.7) verdict = 'Склоняется к ТБ (2.5)';
       else if (sumMod >= 2.2) verdict = 'Склоняется к ТМ (2.5) / ТБ (2.0)';
       else verdict = 'Выраженный низовой характер (ТМ 2.5 / ТМ 2.0)';
       document.getElementById('totalVerdict').textContent = verdict;
 
-      // Обновление Блока 3 (Составы)
+      // БЛОК 3: Составы
       document.getElementById('squadHomeName').textContent = `Хозяева: «${homeName}»`;
       document.getElementById('squadAwayName').textContent = `Гости: «${awayName}»`;
 
       const homeSquad = SQUAD_DATABASE[homeName] || {
         out: "Значимых кадровых потерь не зафиксировано.",
         in: "Основная обойма игроков готова к игре.",
-        impact: `Стандартный игровой темп (${h_mod}% к силе).`
+        impact: `Стандартный ритм (${h_mod}% к силе).`
       };
 
       const awaySquad = SQUAD_DATABASE[awayName] || {
         out: "Точечные микроповреждения игроков ротации.",
         in: "Ключевые исполнители в строю.",
-        impact: `Гостевая модель игры (${a_mod}% к силе).`
+        impact: `Гостевая модель (${a_mod}% к силе).`
       };
 
       document.getElementById('squadHomeOut').textContent = homeSquad.out;
@@ -768,44 +765,84 @@
       document.getElementById('squadAwayIn').textContent = awaySquad.in;
       document.getElementById('squadAwayImpact').textContent = awaySquad.impact;
 
-      // Обновление Блока 4 (Value)
+      // БЛОК 4: Букмекерские коэффициенты и Value (Коридор 1.75 - 2.50)
       const diff = h_mod_val - a_mod_val;
-      const foraVal = diff >= 1.5 ? '-1.5' : (diff >= 0.8 ? '-1.0' : '0.0');
+      let foraLabel = `Азиатская фора 1 (-1.0) на «${homeName}»`;
+      let foraOdds = '1.85 – 1.95';
+      let foraEdge = '+10.4%';
+
+      if (diff >= 1.3) {
+        foraLabel = `Азиатская фора 1 (-1.5) на «${homeName}»`;
+        foraOdds = '1.92 – 2.05';
+        foraEdge = '+12.1%';
+      } else if (diff <= -0.5) {
+        foraLabel = `Фора 2 (0) на «${awayName}»`;
+        foraOdds = '1.80 – 1.90';
+        foraEdge = '+8.6%';
+      } else if (Math.abs(diff) < 0.5) {
+        foraLabel = `Фора 1 (0) на «${homeName}»`;
+        foraOdds = '1.76 – 1.84';
+        foraEdge = '+7.2%';
+      }
+
+      let totalBetLabel = 'Тотал больше (2.5)';
+      let totalOdds = '1.80 – 1.88';
+      let totalEdge = '+11.5%';
+
+      if (sumMod < 2.5) {
+        totalBetLabel = 'Тотал меньше (2.5) азиатский';
+        totalOdds = '1.78 – 1.86';
+        totalEdge = '+9.8%';
+      } else if (sumMod >= 3.2) {
+        totalBetLabel = 'Тотал больше (3.0) азиатский';
+        totalOdds = '1.90 – 2.02';
+        totalEdge = '+13.2%';
+      }
+
+      const itbLine = h_mod_val >= 1.8 ? '1.5' : '1.0';
+      const itbOdds = h_mod_val >= 1.8 ? '1.80 – 1.85' : '1.75 – 1.82';
 
       const valueContainer = document.getElementById('valueBetsContainer');
       valueContainer.innerHTML = `
         <div class="value-item">
           <div class="value-title">
-            <span>Индивидуальный тотал «${homeName}» больше (1.5)</span>
-            <span class="badge-edge">+11.8% EDGE</span>
+            <span>Индивидуальный тотал «${homeName}» больше (${itbLine})</span>
+            <span class="badge-edge">+10.8% EDGE</span>
           </div>
-          <div class="value-desc">Коридор кэфа: 1.80 – 1.86 | Ожидание по xScore: ${h_mod_val.toFixed(2)} гола.</div>
+          <div class="value-desc">Коридор кэфа: ${itbOdds} | Ожидание по xScore: ${h_mod_val.toFixed(2)} гола.</div>
         </div>
         <div class="value-item">
           <div class="value-title">
-            <span>${verdict.includes('ТБ') ? 'Тотал больше (2.5)' : 'Тотал меньше (3.0) азиатский'}</span>
-            <span class="badge-edge">+13.5% EDGE</span>
+            <span>${totalBetLabel}</span>
+            <span class="badge-edge">${totalEdge} EDGE</span>
           </div>
-          <div class="value-desc">Коридор кэфа: 1.78 – 1.88 | Суммарный xScore: ${sumMod.toFixed(2)} мяча.</div>
+          <div class="value-desc">Коридор кэфа: ${totalOdds} | Суммарный xScore: ${sumMod.toFixed(2)} мяча.</div>
         </div>
         <div class="value-item">
           <div class="value-title">
-            <span>Азиатская фора 1 (${foraVal}) на «${homeName}»</span>
-            <span class="badge-edge">+9.2% EDGE</span>
+            <span>${foraLabel}</span>
+            <span class="badge-edge">${foraEdge} EDGE</span>
           </div>
-          <div class="value-desc">Коридор кэфа: 1.82 – 1.95 | Разница потенциалов: ${diff.toFixed(2)}.</div>
+          <div class="value-desc">Коридор кэфа: ${foraOdds} | Разница потенциалов: ${diff.toFixed(2)}.</div>
         </div>
       `;
 
-      // Обновление Блока 5 (Live)
-      document.getElementById('liveScenarioA').textContent = 
-        `Если к 25–30 минуте счёт 0:0, а «${homeName}» владеет мячом свыше 65% и наносит удары, коэффициент на победу хозяев (или фору ${foraVal}) поднимется до 1.80 – 2.05. Отличная точка для ставки.`;
-      
-      document.getElementById('liveScenarioB').textContent = 
-        `При быстром голе до 20-й минуты темп встречи раскроется, поднимая котировку на ТБ (3.5) выше 2.10, а сценарий контроля мяча создает предпосылки для маркета «Гол во 2-м тайме».`;
+      // БЛОК 5: Сценарии LIVE
+      const scenarioAEl = document.getElementById('liveScenarioA');
+      const scenarioBEl = document.getElementById('liveScenarioB');
+
+      if (scenarioAEl) {
+        scenarioAEl.textContent = 
+          `Если к 25–30 минуте счёт 0:0, а «${homeName}» удерживает мяч свыше 62% и нанес 3+ акцентированных удара, коэффициент на чистую победу (П1) поднимется до 1.85 – 2.05, а на ИТБ 1.0 «${homeName}» — до 1.75. Оптимальная точка входа.`;
+      }
+
+      if (scenarioBEl) {
+        scenarioBEl.textContent = 
+          `При быстром голе любой команды до 20-й минуты темп встречи раскроется, поднимая котировку на ТБ (${(Math.floor(sumMod) + 1.5).toFixed(1)}) выше 2.10, а сценарий контроля создаст предпосылки для маркета «Гол во 2-м тайме».`;
+      }
     }
 
-    // Слушатели событий: работают и при клике, и при скролле списка на смартфонах
+    // Слушатели событий
     window.addEventListener("DOMContentLoaded", () => {
       const select = document.getElementById('matchSelect');
       if (select) {
