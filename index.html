@@ -17,6 +17,7 @@
       --green: #22c55e;
       --red: #ef4444;
       --yellow: #facc15;
+      --purple: #c084fc;
     }
 
     * {
@@ -72,7 +73,6 @@
       cursor: pointer;
       user-select: none;
       background: rgba(255,255,255,0.02);
-      border-bottom: 1px solid transparent;
       transition: background 0.2s;
     }
 
@@ -103,16 +103,12 @@
       display: none;
     }
 
-    .block.collapsed .block-header {
-      border-bottom-color: transparent;
-    }
-
     .block-content {
       padding: 18px;
       border-top: 1px solid var(--card-border);
     }
 
-    /* Формы и элементы управления */
+    /* Формы и элементы ввода */
     label {
       display: block;
       font-size: 14px;
@@ -175,32 +171,7 @@
       transform: scale(0.99);
     }
 
-    /* Таблицы */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 15px;
-      margin-top: 6px;
-    }
-
-    th, td {
-      padding: 10px 8px;
-      text-align: center;
-      border-bottom: 1px solid var(--card-border);
-    }
-
-    th {
-      color: var(--text-muted);
-      font-weight: 600;
-      font-size: 13px;
-    }
-
-    td.team-name {
-      font-weight: 700;
-      text-align: left;
-    }
-
-    /* Блоки акцента результатов */
+    /* Карточки счёта */
     .score-card {
       background: #0b111e;
       border-radius: 12px;
@@ -228,6 +199,51 @@
       margin-top: 4px;
     }
 
+    /* Карточки составов */
+    .squad-card {
+      background: #0b111e;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+      border-left: 4px solid var(--purple);
+    }
+
+    .squad-team {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .squad-section {
+      font-size: 15px;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .squad-section strong {
+      color: #e2e8f0;
+    }
+
+    .tag-out {
+      color: #f87171;
+      font-weight: 600;
+    }
+
+    .tag-in {
+      color: #4ade80;
+      font-weight: 600;
+    }
+
+    .tag-impact {
+      color: #facc15;
+      font-weight: 600;
+    }
+
+    /* Value & Live */
     .badge-edge {
       display: inline-block;
       background: rgba(34, 197, 94, 0.15);
@@ -241,7 +257,7 @@
     }
 
     .value-item {
-      padding: 12px;
+      padding: 14px;
       background: #0b111e;
       border-radius: 10px;
       margin-bottom: 10px;
@@ -276,14 +292,6 @@
       font-weight: 700;
       color: var(--yellow);
       margin-bottom: 6px;
-    }
-
-    .cadre-box {
-      background: #0b111e;
-      border-radius: 10px;
-      padding: 14px;
-      margin-bottom: 12px;
-      border-left: 4px solid #a855f7;
     }
   </style>
 </head>
@@ -373,323 +381,3 @@
           <input type="number" step="0.1" id="away_cr" value="3.2">
         </div>
       </div>
-
-      <div class="grid-2">
-        <div>
-          <label>Поправка хозяев (% к силе)</label>
-          <input type="number" id="home_mod" value="-5">
-        </div>
-        <div>
-          <label>Поправка гостей (% к силе)</label>
-          <input type="number" id="away_mod" value="-12">
-        </div>
-      </div>
-
-      <button class="btn-calc" onclick="calculateAll()">Рассчитать карточку матча</button>
-    </div>
-  </div>
-
-  <!-- БЛОК 2 -->
-  <div class="block" id="block-2">
-    <div class="block-header" onclick="toggleBlock('block-2')">
-      <div class="block-title">2. Прогнозируемый счёт и xScore</div>
-      <div class="toggle-arrow">▼</div>
-    </div>
-    <div class="block-content">
-      <div class="score-card">
-        <label>Базовый расчёт (без травм):</label>
-        <div class="score-main" id="baseScore">2 : 0</div>
-        <div class="score-sub">Дробный xScore: <span id="baseXScore">1.90 : 0.80</span></div>
-      </div>
-
-      <div class="score-card highlight">
-        <label>С учётом травм и ротации (Mod Кадры):</label>
-        <div class="score-main" id="modScore">2 : 0</div>
-        <div class="score-sub">Дробный xScore с модификатором: <span id="modXScore">1.80 : 0.70</span></div>
-      </div>
-
-      <div class="score-card">
-        <label>Итоговый вердикт (Ожидание по общему тоталу):</label>
-        <div class="score-main" style="font-size: 20px;" id="totalVerdict">Склоняется к ТМ (2.5) / ТБ (2.0)</div>
-        <div class="score-sub">Суммарный ожидаемый xScore матча: <span id="sumXScore">2.50</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- БЛОК 3 -->
-  <div class="block" id="block-3">
-    <div class="block-header" onclick="toggleBlock('block-3')">
-      <div class="block-title">3. Сводный объём действий (5 метрик)</div>
-      <div class="toggle-arrow">▼</div>
-    </div>
-    <div class="block-content">
-      <table>
-        <thead>
-          <tr>
-            <th id="thHome">Хозяева</th>
-            <th>Показатель</th>
-            <th id="thAway">Гости</th>
-            <th>Тотал</th>
-            <th>Ожидание</th>
-          </tr>
-        </thead>
-        <tbody id="metricsTableBody">
-          <!-- Заполняется в JS -->
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- БЛОК 4 -->
-  <div class="block" id="block-4">
-    <div class="block-header" onclick="toggleBlock('block-4')">
-      <div class="block-title">4. Кадровый контекст</div>
-      <div class="toggle-arrow">▼</div>
-    </div>
-    <div class="block-content">
-      <div class="cadre-box">
-        <strong id="cadreHomeTitle" style="color: #c084fc;">Хозяева:</strong>
-        <p id="cadreHomeText" style="margin-top: 4px; font-size: 15px;">
-          Ротация после паузы на сборные. Базовый темп созидания слегка скорректирован (-5% к xScore).
-        </p>
-      </div>
-      <div class="cadre-box">
-        <strong id="cadreAwayTitle" style="color: #c084fc;">Гости:</strong>
-        <p id="cadreAwayText" style="margin-top: 4px; font-size: 15px;">
-          Потери в оборонительной линии и дефицит острых фланговых игроков на выезде (-12% к xScore).
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- БЛОК 5 -->
-  <div class="block" id="block-5">
-    <div class="block-header" onclick="toggleBlock('block-5')">
-      <div class="block-title">5. Букмекерские коэффициенты и поиск VALUE</div>
-      <div class="toggle-arrow">▼</div>
-    </div>
-    <div class="block-content">
-      <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">
-        Целевой рабочий коридор котировок: <strong>1.75 – 2.50</strong>
-      </div>
-      <div id="valueBetsContainer">
-        <!-- Генерируется в JS -->
-      </div>
-    </div>
-  </div>
-
-  <!-- БЛОК 6 -->
-  <div class="block" id="block-6">
-    <div class="block-header" onclick="toggleBlock('block-6')">
-      <div class="block-title">6. Сценарии для LIVE</div>
-      <div class="toggle-arrow">▼</div>
-    </div>
-    <div class="block-content">
-      <div class="scenario-box">
-        <div class="scenario-title">Сценарий А: Счёт 0:0 к 25–30 минуте</div>
-        <p id="liveScenarioA" style="font-size: 15px;">
-          Если фаворит контролирует мяч свыше 65% и наносит удары, котировка на чистую победу вырастет в диапазон 1.55 – 1.65, а фора (-1.0) превысит 2.05. Оптимальная точка входа.
-        </p>
-      </div>
-
-      <div class="scenario-box">
-        <div class="scenario-title">Сценарий Б: Быстрый гол в первом тайме</div>
-        <p id="liveScenarioB" style="font-size: 15px;">
-          Если счёт открыт до 20-й минуты, линия на ТБ (3.5) поднимается выше 2.10, а сценарий контроля мяча создает предпосылки для маркета «Гол во 2-м тайме».
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.expand();
-      window.Telegram.WebApp.ready();
-    }
-
-    let loadedMatches = [];
-
-    function toggleBlock(id) {
-      const el = document.getElementById(id);
-      if (el) {
-        el.classList.toggle('collapsed');
-      }
-    }
-
-    // Загрузка matches.json
-    async function loadMatches() {
-      try {
-        const res = await fetch('matches.json?t=' + Date.now());
-        const data = await res.json();
-        loadedMatches = data.matches || [];
-
-        const select = document.getElementById('matchSelect');
-        select.innerHTML = '';
-
-        if (loadedMatches.length === 0) {
-          select.innerHTML = '<option value="">Нет доступных матчей</option>';
-          return;
-        }
-
-        loadedMatches.forEach((m, idx) => {
-          const opt = document.createElement('option');
-          opt.value = idx;
-          const dateStr = m.date ? new Date(m.date).toLocaleDateString('ru-RU', {day: 'numeric', month: 'short'}) : '';
-          opt.textContent = `${dateStr} | ${m.home} vs ${m.away}`;
-          select.appendChild(opt);
-        });
-
-        onMatchChange();
-      } catch (e) {
-        console.error('Ошибка загрузки matches.json:', e);
-        calculateAll();
-      }
-    }
-
-    function onMatchChange() {
-      const select = document.getElementById('matchSelect');
-      const idx = select.value;
-      if (idx === '' || !loadedMatches[idx]) {
-        calculateAll();
-        return;
-      }
-
-      const m = loadedMatches[idx];
-      document.getElementById('homeTeam').value = m.home;
-      document.getElementById('awayTeam').value = m.away;
-
-      if (m.home_stats) {
-        document.getElementById('home_xg').value = m.home_stats.xg || 1.85;
-        document.getElementById('home_sot').value = m.home_stats.sot || 5.2;
-        document.getElementById('home_goals').value = m.home_stats.goals || 1.6;
-        document.getElementById('home_sh').value = m.home_stats.sh || 14.2;
-        document.getElementById('home_cr').value = m.home_stats.cr || 5.8;
-      }
-
-      if (m.away_stats) {
-        document.getElementById('away_xg').value = m.away_stats.xg || 0.85;
-        document.getElementById('away_sot').value = m.away_stats.sot || 2.6;
-        document.getElementById('away_goals').value = m.away_stats.goals || 0.8;
-        document.getElementById('away_sh').value = m.away_stats.sh || 8.4;
-        document.getElementById('away_cr').value = m.away_stats.cr || 3.2;
-      }
-
-      calculateAll();
-    }
-
-    function calculateAll() {
-      const homeName = document.getElementById('homeTeam').value || 'Хозяева';
-      const awayName = document.getElementById('awayTeam').value || 'Гости';
-
-      const h_xg = parseFloat(document.getElementById('home_xg').value) || 0;
-      const a_xg = parseFloat(document.getElementById('away_xg').value) || 0;
-      const h_sot = parseFloat(document.getElementById('home_sot').value) || 0;
-      const a_sot = parseFloat(document.getElementById('away_sot').value) || 0;
-      const h_g = parseFloat(document.getElementById('home_goals').value) || 0;
-      const a_g = parseFloat(document.getElementById('away_goals').value) || 0;
-      const h_sh = parseFloat(document.getElementById('home_sh').value) || 0;
-      const a_sh = parseFloat(document.getElementById('away_sh').value) || 0;
-      const h_cr = parseFloat(document.getElementById('home_cr').value) || 0;
-      const a_cr = parseFloat(document.getElementById('away_cr').value) || 0;
-
-      const h_mod = parseFloat(document.getElementById('home_mod').value) || 0;
-      const a_mod = parseFloat(document.getElementById('away_mod').value) || 0;
-
-      // 5-факторный расчет
-      const h_base = (h_xg * 0.35) + ((h_sot * 0.38) * 0.25) + (h_g * 0.20) + ((h_sh * 0.14) * 0.10) + ((h_cr * 0.34) * 0.10);
-      const a_base = (a_xg * 0.35) + ((a_sot * 0.28) * 0.25) + (a_g * 0.20) + ((a_sh * 0.09) * 0.10) + ((a_cr * 0.23) * 0.10);
-
-      const h_mod_val = Math.max(0.1, h_base * (1 + h_mod / 100));
-      const a_mod_val = Math.max(0.1, a_base * (1 + a_mod / 100));
-
-      const baseHScore = Math.round(h_base);
-      const baseAScore = Math.round(a_base);
-      const modHScore = Math.round(h_mod_val);
-      const modAScore = Math.round(a_mod_val);
-
-      // Обновляем блок 2
-      document.getElementById('baseScore').textContent = `${baseHScore} : ${baseAScore}`;
-      document.getElementById('baseXScore').textContent = `${h_base.toFixed(2)} : ${a_base.toFixed(2)}`;
-      document.getElementById('modScore').textContent = `${modHScore} : ${modAScore}`;
-      document.getElementById('modXScore').textContent = `${h_mod_val.toFixed(2)} : ${a_mod_val.toFixed(2)}`;
-
-      const sumMod = h_mod_val + a_mod_val;
-      document.getElementById('sumXScore').textContent = sumMod.toFixed(2);
-
-      let verdict = '';
-      if (sumMod >= 3.3) verdict = 'Ярко выраженный ТБ (2.5) / ТБ (3.0)';
-      else if (sumMod >= 2.7) verdict = 'Склоняется к ТБ (2.5)';
-      else if (sumMod >= 2.2) verdict = 'Склоняется к ТМ (2.5) / ТБ (2.0)';
-      else verdict = 'Выраженный низовой характер (ТМ 2.5 / ТМ 2.0)';
-      document.getElementById('totalVerdict').textContent = verdict;
-
-      // Обновляем блок 3 (Таблица)
-      document.getElementById('thHome').textContent = homeName;
-      document.getElementById('thAway').textContent = awayName;
-
-      const rows = [
-        { name: 'xG / xGA', h: h_xg.toFixed(2), a: a_xg.toFixed(2), tot: (h_xg + a_xg).toFixed(2), exp: `${Math.round(h_xg)}:${Math.round(a_xg)}` },
-        { name: 'Удары в створ', h: h_sot.toFixed(1), a: a_sot.toFixed(1), tot: (h_sot + a_sot).toFixed(1), exp: `${Math.round(h_sot*0.38)}:${Math.round(a_sot*0.28)}` },
-        { name: 'Реальные голы', h: h_g.toFixed(1), a: a_g.toFixed(1), tot: (h_g + a_g).toFixed(1), exp: `${Math.round(h_g)}:${Math.round(a_g)}` },
-        { name: 'Все удары', h: h_sh.toFixed(1), a: a_sh.toFixed(1), tot: (h_sh + a_sh).toFixed(1), exp: `${Math.round(h_sh*0.14)}:${Math.round(a_sh*0.09)}` },
-        { name: 'Угловые', h: h_cr.toFixed(1), a: a_cr.toFixed(1), tot: (h_cr + a_cr).toFixed(1), exp: `${Math.round(h_cr*0.34)}:${Math.round(a_cr*0.23)}` },
-        { name: 'Σ xScore', h: h_base.toFixed(2), a: a_base.toFixed(2), tot: (h_base + a_base).toFixed(2), exp: `${baseHScore}:${baseAScore}` },
-        { name: 'Mod Кадры', h: h_mod_val.toFixed(2), a: a_mod_val.toFixed(2), tot: (h_mod_val + a_mod_val).toFixed(2), exp: `${modHScore}:${modAScore}` }
-      ];
-
-      const tbody = document.getElementById('metricsTableBody');
-      tbody.innerHTML = '';
-      rows.forEach(r => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td class="team-name">${r.h}</td>
-          <td><strong>${r.name}</strong></td>
-          <td class="team-name">${r.a}</td>
-          <td>${r.tot}</td>
-          <td style="color:#60a5fa; font-weight:700;">${r.exp}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-
-      // Обновляем блок 4 (Кадры)
-      document.getElementById('cadreHomeTitle').textContent = homeName + ':';
-      document.getElementById('cadreAwayTitle').textContent = awayName + ':';
-
-      // Обновляем блок 5 (Value)
-      const valueContainer = document.getElementById('valueBetsContainer');
-      valueContainer.innerHTML = `
-        <div class="value-item">
-          <div class="value-title">
-            <span>Индивидуальный тотал ${homeName} больше (1.5)</span>
-            <span class="badge-edge">+11.5% EDGE</span>
-          </div>
-          <div class="value-desc">Коридор кэфа: 1.80 – 1.85 | Ожидание по xScore: ${h_mod_val.toFixed(2)} гола.</div>
-        </div>
-        <div class="value-item">
-          <div class="value-title">
-            <span>${verdict.includes('ТБ') ? 'Тотал больше (2.5)' : 'Тотал меньше (3.0)'}</span>
-            <span class="badge-edge">+14.2% EDGE</span>
-          </div>
-          <div class="value-desc">Коридор кэфа: 1.78 – 1.88 | Суммарный xScore: ${sumMod.toFixed(2)}.</div>
-        </div>
-        <div class="value-item">
-          <div class="value-title">
-            <span>Азиатская фора 1 (${h_mod_val - a_mod_val > 1.2 ? '-1.0' : '0.0'}) на ${homeName}</span>
-            <span class="badge-edge">+8.7% EDGE</span>
-          </div>
-          <div class="value-desc">Коридор кэфа: 1.82 – 1.95 | Разница потенциалов: ${(h_mod_val - a_mod_val).toFixed(2)}.</div>
-        </div>
-      `;
-
-      // Обновляем блок 6 (LIVE)
-      document.getElementById('liveScenarioA').textContent = 
-        `Если к 25–30 минуте счёт 0:0, а ${homeName} удерживает мяч и нанёс 3+ удара, коэффициент на победу хозяев (или фору -1.0) войдёт в диапазон 1.80 – 2.05. Отличная точка для ставки в лайве.`;
-      
-      document.getElementById('liveScenarioB').textContent = 
-        `При быстром голе до 20-й минуты темп встречи раскроется, поднимая котировку на ТБ (3.5) выше 2.10, а маркет «ИТБ 1.0 проигрывающей команды» станет ключевым кандидатом.`;
-    }
-
-    window.onload = loadMatches;
-  </script>
-</body>
-</html>
