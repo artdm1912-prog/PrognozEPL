@@ -281,7 +281,7 @@
     </div>
     <div class="block-content">
       <label for="matchSelect">Выберите матч тура:</label>
-      <select id="matchSelect" onchange="onMatchChange()">
+      <select id="matchSelect">
         <option value="0">10 окт, 14:30 | Арсенал vs Лидс Юнайтед</option>
         <option value="1">10 окт, 17:00 | Челси vs Борнмут</option>
         <option value="2">10 окт, 17:00 | Астон Вилла vs Брентфорд</option>
@@ -481,4 +481,339 @@
   <script>
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.expand();
-      window.
+      window.Telegram.WebApp.ready();
+    }
+
+    const MATCHES_DATA = [
+      {
+        home: "Арсенал", away: "Лидс Юнайтед",
+        home_stats: {xg: 1.85, sot: 5.2, goals: 1.6, sh: 14.2, cr: 5.8},
+        away_stats: {xg: 0.85, sot: 2.6, goals: 0.8, sh: 8.4, cr: 3.2}
+      },
+      {
+        home: "Челси", away: "Борнмут",
+        home_stats: {xg: 1.75, sot: 5.0, goals: 1.8, sh: 13.8, cr: 5.6},
+        away_stats: {xg: 1.15, sot: 3.6, goals: 1.0, sh: 10.2, cr: 4.1}
+      },
+      {
+        home: "Астон Вилла", away: "Брентфорд",
+        home_stats: {xg: 1.55, sot: 4.6, goals: 1.4, sh: 12.8, cr: 5.2},
+        away_stats: {xg: 1.30, sot: 3.8, goals: 1.2, sh: 11.0, cr: 4.4}
+      },
+      {
+        home: "Ипсвич Таун", away: "Фулхэм",
+        home_stats: {xg: 1.10, sot: 3.4, goals: 1.0, sh: 9.8, cr: 4.0},
+        away_stats: {xg: 1.35, sot: 4.1, goals: 1.2, sh: 11.5, cr: 4.7}
+      },
+      {
+        home: "Сандерленд", away: "Брайтон",
+        home_stats: {xg: 1.05, sot: 3.2, goals: 0.8, sh: 9.2, cr: 3.8},
+        away_stats: {xg: 1.65, sot: 4.9, goals: 1.6, sh: 13.9, cr: 5.7}
+      },
+      {
+        home: "Манчестер Юнайтед", away: "Тоттенхэм",
+        home_stats: {xg: 1.60, sot: 4.8, goals: 1.4, sh: 13.4, cr: 5.5},
+        away_stats: {xg: 1.70, sot: 5.1, goals: 1.8, sh: 14.2, cr: 6.0}
+      },
+      {
+        home: "Кристал Пэлас", away: "Ноттингем Форест",
+        home_stats: {xg: 1.25, sot: 3.7, goals: 1.2, sh: 10.8, cr: 4.4},
+        away_stats: {xg: 1.15, sot: 3.5, goals: 1.0, sh: 10.1, cr: 4.1}
+      },
+      {
+        home: "Халл Сити", away: "Эвертон",
+        home_stats: {xg: 1.00, sot: 3.1, goals: 0.8, sh: 9.0, cr: 3.6},
+        away_stats: {xg: 1.30, sot: 4.0, goals: 1.2, sh: 11.4, cr: 4.5}
+      },
+      {
+        home: "Ливерпуль", away: "Манчестер Сити",
+        home_stats: {xg: 2.10, sot: 6.2, goals: 2.2, sh: 16.0, cr: 6.8},
+        away_stats: {xg: 2.20, sot: 6.4, goals: 2.2, sh: 16.5, cr: 7.0}
+      },
+      {
+        home: "Ковентри Сити", away: "Ньюкасл",
+        home_stats: {xg: 1.00, sot: 3.0, goals: 0.8, sh: 8.8, cr: 3.5},
+        away_stats: {xg: 1.70, sot: 5.2, goals: 1.6, sh: 14.0, cr: 5.9}
+      }
+    ];
+
+    const SQUAD_DATABASE = {
+      "Арсенал": {
+        out: "Кай Хаверц (мышечное повреждение в сборной), Вильям Салиба (спина).",
+        in: "Деклан Райс, Мартин Эдегор, Букайо Сака, Бен Уайт.",
+        impact: "Легкий спад темпа в завершении после паузы на сборные (-5% к xScore), но ключевой центр поля сохранен.",
+        defaultMod: -5
+      },
+      "Лидс Юнайтед": {
+        out: "Дэниел Джеймс (спина), Джо Родон (подколенное сухожилие).",
+        in: "Итан Ампаду, Георгиньо Рюттер, Иллан Мелье.",
+        impact: "Потеря главного спринтера Джеймса лишает команду контратак, а оборона уязвима на стандартах (-12% к xScore).",
+        defaultMod: -12
+      },
+      "Челси": {
+        out: "Джейми Байно-Гиттенс (бедро), Рис Джеймс (лимит нагрузки).",
+        in: "Коул Палмер (полная готовность), Мойсес Кайседо, Николас Джексон.",
+        impact: "Палмер возвращает максимальный креатив впереди, поправка -5%.",
+        defaultMod: -5
+      },
+      "Борнмут": {
+        out: "Джастин Клюйверт (пах), Алекс Скотт (колено), Хулиан Араухо (бедро).",
+        in: "Маркус Тавернье, Антуан Семеньо.",
+        impact: "Потеря созидателей срезает потенциал на «Стэмфорд Бридж» (-12% к xScore).",
+        defaultMod: -12
+      },
+      "Астон Вилла": {
+        out: "Бубакар Камара (колено), Тайрон Мингз (набор формы).",
+        in: "Олли Уоткинс, Морган Роджерс, Эмилиано Мартинес.",
+        impact: "Ударная атака в строю, но микроротация опорников держит поправку на уровне -4%.",
+        defaultMod: -4
+      },
+      "Брентфорд": {
+        out: "Рико Генри (колено), Аарон Хики (подколенное сухожилие).",
+        in: "Бриан Мбемо, Йоан Висса, Кристиан Нёргор.",
+        impact: "Фланги обороны уязвимы против скоростных атак соперника (-8% к xScore).",
+        defaultMod: -8
+      },
+      "Ипсвич Таун": {
+        out: "Гарри Кларк (ахилл), Нейтан Бродхед (пах).",
+        in: "Лиам Делап, Сэм Морси, Лейф Дэвис.",
+        impact: "Высокая самоотдача дома, но нехватка глубины скамейки (-6%).",
+        defaultMod: -6
+      },
+      "Фулхэм": {
+        out: "Саша Лукич (плечо), Виллиан (мышечный спазм).",
+        in: "Алекс Ивоби, Родриго Муниз, Эмиль Смит-Роу.",
+        impact: "Смит-Роу и Ивоби ведут игру, стабильная позиционная модель (-3%).",
+        defaultMod: -3
+      },
+      "Сандерленд": {
+        out: "Дэн Баллард (лодыжка), Дженсон Силт (колено).",
+        in: "Джори Джоби Беллингем, Патрик Робертс.",
+        impact: "Ограниченный ресурс при стандартах у своих ворот (-10%).",
+        defaultMod: -10
+      },
+      "Брайтон": {
+        out: "Жоао Педро (икра), Мэтт О'Райли (лодыжка).",
+        in: "Каору Митома, Дэнни Уэлбек, Карлос Балеба.",
+        impact: "Митома в отличной форме, быстрый переход из обороны в атаку (-4%).",
+        defaultMod: -4
+      },
+      "Манчестер Юнайтед": {
+        out: "Люк Шоу (икра), Мейсон Маунт (бедро).",
+        in: "Бруну Фернандеш, Расмус Хёйлунн, Алехандро Гарначо.",
+        impact: "Ослаблен левый фланг защиты, но атака полностью боеспособна (-6%).",
+        defaultMod: -6
+      },
+      "Тоттенхэм": {
+        out: "Ришарлисон (икра), Деян Кулусевски (ушиб).",
+        in: "Сон Хын Мин, Джеймс Мэддисон, Кристиан Ромеро.",
+        impact: "Высокая интенсивность прессинга, ротация в нападении (-5%).",
+        defaultMod: -5
+      },
+      "Кристал Пэлас": {
+        out: "Шейк Дукуре (колено), Чади Риад (бедро).",
+        in: "Эберечи Эзе, Жан-Филипп Матета, Марк Гехи.",
+        impact: "Лидеры атаки в строю, традиционная домашняя плотность (-4%).",
+        defaultMod: -4
+      },
+      "Ноттингем Форест": {
+        out: "Данило (лодыжка), Ибраим Сангаре (подколенное сухожилие).",
+        in: "Морган Гиббс-Уайт, Крис Вуд, Каллум Хадсон-Одои.",
+        impact: "Контратакующий каркас готов, но не хватает опорного разрушителя (-7%).",
+        defaultMod: -7
+      },
+      "Халл Сити": {
+        out: "Доган Райан (бедро), Лиам Миллар (колено).",
+        in: "Оскар Самбрано, Коди Драме.",
+        impact: "Проблемы в позиционном созидании против команд уровня АПЛ (-12%).",
+        defaultMod: -12
+      },
+      "Эвертон": {
+        out: "Джеймс Гарнер (спина), Армандо Броя (ахилл).",
+        in: "Доминик Калверт-Льюин, Дуайт Макнил, Джаррэд Брэнтуэйт.",
+        impact: "Стандарты Макнила и мощь Калверта-Льюина дают стабильную угрозу (-5%).",
+        defaultMod: -5
+      },
+      "Ливерпуль": {
+        out: "Харви Эллиотт (стопа), легкие мышечные спазмы у крайних защитников.",
+        in: "Алексис Мак Аллистер, Мохамед Салах, Луис Диас, Вирджил ван Дейк.",
+        impact: "Оптимальный стартовый костяк в атаке на «Энфилде» (-3% к защите).",
+        defaultMod: -3
+      },
+      "Манчестер Сити": {
+        out: "Родри (набор формы), Натан Аке (мышечное повреждение).",
+        in: "Эрлинг Холанн, Кевин Де Брёйне, Фил Фоден, Бернарду Силва.",
+        impact: "Высокая результативность, но уязвимость в опорной зоне перед контратаками (-4%).",
+        defaultMod: -4
+      },
+      "Ковентри Сити": {
+        out: "Бен Шиф (икра), Тацухиро Сакамото (бедро).",
+        in: "Эллис Симмс, Хаджи Райт, Милан ван Эвейк.",
+        impact: "Тяжелый график, ставка на плотный блок у своих ворот (-10%).",
+        defaultMod: -10
+      },
+      "Ньюкасл": {
+        out: "Свен Ботман (колено), Джамаал Ласселлс (колено).",
+        in: "Александр Исак, Энтони Гордон, Бруно Гимарайнс.",
+        impact: "Исак и Гордон дают ураганный темп на контратаках (-4%).",
+        defaultMod: -4
+      }
+    };
+
+    function toggleBlock(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('collapsed');
+    }
+
+    function applySelectedMatch() {
+      const select = document.getElementById('matchSelect');
+      const idx = parseInt(select.value, 10);
+      if (isNaN(idx) || !MATCHES_DATA[idx]) return;
+
+      const m = MATCHES_DATA[idx];
+      document.getElementById('homeTeam').value = m.home;
+      document.getElementById('awayTeam').value = m.away;
+
+      if (m.home_stats) {
+        document.getElementById('home_xg').value = m.home_stats.xg;
+        document.getElementById('home_sot').value = m.home_stats.sot;
+        document.getElementById('home_goals').value = m.home_stats.goals;
+        document.getElementById('home_sh').value = m.home_stats.sh;
+        document.getElementById('home_cr').value = m.home_stats.cr;
+      }
+
+      if (m.away_stats) {
+        document.getElementById('away_xg').value = m.away_stats.xg;
+        document.getElementById('away_sot').value = m.away_stats.sot;
+        document.getElementById('away_goals').value = m.away_stats.goals;
+        document.getElementById('away_sh').value = m.away_stats.sh;
+        document.getElementById('away_cr').value = m.away_stats.cr;
+      }
+
+      const homeSquad = SQUAD_DATABASE[m.home];
+      const awaySquad = SQUAD_DATABASE[m.away];
+      document.getElementById('home_mod').value = homeSquad ? homeSquad.defaultMod : 0;
+      document.getElementById('away_mod').value = awaySquad ? awaySquad.defaultMod : 0;
+
+      calculateAll();
+    }
+
+    function calculateAll() {
+      const homeName = document.getElementById('homeTeam').value || 'Хозяева';
+      const awayName = document.getElementById('awayTeam').value || 'Гости';
+
+      const h_xg = parseFloat(document.getElementById('home_xg').value) || 0;
+      const a_xg = parseFloat(document.getElementById('away_xg').value) || 0;
+      const h_sot = parseFloat(document.getElementById('home_sot').value) || 0;
+      const a_sot = parseFloat(document.getElementById('away_sot').value) || 0;
+      const h_g = parseFloat(document.getElementById('home_goals').value) || 0;
+      const a_g = parseFloat(document.getElementById('away_goals').value) || 0;
+      const h_sh = parseFloat(document.getElementById('home_sh').value) || 0;
+      const a_sh = parseFloat(document.getElementById('away_sh').value) || 0;
+      const h_cr = parseFloat(document.getElementById('home_cr').value) || 0;
+      const a_cr = parseFloat(document.getElementById('away_cr').value) || 0;
+
+      const h_mod = parseFloat(document.getElementById('home_mod').value) || 0;
+      const a_mod = parseFloat(document.getElementById('away_mod').value) || 0;
+
+      // 5-факторная формула
+      const h_base = (h_xg * 0.35) + ((h_sot * 0.38) * 0.25) + (h_g * 0.20) + ((h_sh * 0.14) * 0.10) + ((h_cr * 0.34) * 0.10);
+      const a_base = (a_xg * 0.35) + ((a_sot * 0.28) * 0.25) + (a_g * 0.20) + ((a_sh * 0.09) * 0.10) + ((a_cr * 0.23) * 0.10);
+
+      const h_mod_val = Math.max(0.1, h_base * (1 + h_mod / 100));
+      const a_mod_val = Math.max(0.1, a_base * (1 + a_mod / 100));
+
+      const baseHScore = Math.round(h_base);
+      const baseAScore = Math.round(a_base);
+      const modHScore = Math.round(h_mod_val);
+      const modAScore = Math.round(a_mod_val);
+
+      // Обновление Блока 2
+      document.getElementById('baseScore').textContent = `${baseHScore} : ${baseAScore}`;
+      document.getElementById('baseXScore').textContent = `${h_base.toFixed(2)} : ${a_base.toFixed(2)}`;
+      document.getElementById('modScore').textContent = `${modHScore} : ${modAScore}`;
+      document.getElementById('modXScore').textContent = `${h_mod_val.toFixed(2)} : ${a_mod_val.toFixed(2)}`;
+
+      const sumMod = h_mod_val + a_mod_val;
+      document.getElementById('sumXScore').textContent = sumMod.toFixed(2);
+
+      let verdict = '';
+      if (sumMod >= 3.3) verdict = 'Ярко выраженный ТБ (2.5) / ТБ (3.0)';
+      else if (sumMod >= 2.7) verdict = 'Склоняется к ТБ (2.5)';
+      else if (sumMod >= 2.2) verdict = 'Склоняется к ТМ (2.5) / ТБ (2.0)';
+      else verdict = 'Выраженный низовой характер (ТМ 2.5 / ТМ 2.0)';
+      document.getElementById('totalVerdict').textContent = verdict;
+
+      // Обновление Блока 3 (Составы)
+      document.getElementById('squadHomeName').textContent = `Хозяева: «${homeName}»`;
+      document.getElementById('squadAwayName').textContent = `Гости: «${awayName}»`;
+
+      const homeSquad = SQUAD_DATABASE[homeName] || {
+        out: "Значимых кадровых потерь не зафиксировано.",
+        in: "Основная обойма игроков готова к игре.",
+        impact: `Стандартный игровой темп (${h_mod}% к силе).`
+      };
+
+      const awaySquad = SQUAD_DATABASE[awayName] || {
+        out: "Точечные микроповреждения игроков ротации.",
+        in: "Ключевые исполнители в строю.",
+        impact: `Гостевая модель игры (${a_mod}% к силе).`
+      };
+
+      document.getElementById('squadHomeOut').textContent = homeSquad.out;
+      document.getElementById('squadHomeIn').textContent = homeSquad.in;
+      document.getElementById('squadHomeImpact').textContent = homeSquad.impact;
+
+      document.getElementById('squadAwayOut').textContent = awaySquad.out;
+      document.getElementById('squadAwayIn').textContent = awaySquad.in;
+      document.getElementById('squadAwayImpact').textContent = awaySquad.impact;
+
+      // Обновление Блока 4 (Value)
+      const diff = h_mod_val - a_mod_val;
+      const foraVal = diff >= 1.5 ? '-1.5' : (diff >= 0.8 ? '-1.0' : '0.0');
+
+      const valueContainer = document.getElementById('valueBetsContainer');
+      valueContainer.innerHTML = `
+        <div class="value-item">
+          <div class="value-title">
+            <span>Индивидуальный тотал «${homeName}» больше (1.5)</span>
+            <span class="badge-edge">+11.8% EDGE</span>
+          </div>
+          <div class="value-desc">Коридор кэфа: 1.80 – 1.86 | Ожидание по xScore: ${h_mod_val.toFixed(2)} гола.</div>
+        </div>
+        <div class="value-item">
+          <div class="value-title">
+            <span>${verdict.includes('ТБ') ? 'Тотал больше (2.5)' : 'Тотал меньше (3.0) азиатский'}</span>
+            <span class="badge-edge">+13.5% EDGE</span>
+          </div>
+          <div class="value-desc">Коридор кэфа: 1.78 – 1.88 | Суммарный xScore: ${sumMod.toFixed(2)} мяча.</div>
+        </div>
+        <div class="value-item">
+          <div class="value-title">
+            <span>Азиатская фора 1 (${foraVal}) на «${homeName}»</span>
+            <span class="badge-edge">+9.2% EDGE</span>
+          </div>
+          <div class="value-desc">Коридор кэфа: 1.82 – 1.95 | Разница потенциалов: ${diff.toFixed(2)}.</div>
+        </div>
+      `;
+
+      // Обновление Блока 5 (Live)
+      document.getElementById('liveScenarioA').textContent = 
+        `Если к 25–30 минуте счёт 0:0, а «${homeName}» владеет мячом свыше 65% и наносит удары, коэффициент на победу хозяев (или фору ${foraVal}) поднимется до 1.80 – 2.05. Отличная точка для ставки.`;
+      
+      document.getElementById('liveScenarioB').textContent = 
+        `При быстром голе до 20-й минуты темп встречи раскроется, поднимая котировку на ТБ (3.5) выше 2.10, а сценарий контроля мяча создает предпосылки для маркета «Гол во 2-м тайме».`;
+    }
+
+    // Слушатели событий: работают и при клике, и при скролле списка на смартфонах
+    window.addEventListener("DOMContentLoaded", () => {
+      const select = document.getElementById('matchSelect');
+      if (select) {
+        select.addEventListener('change', applySelectedMatch);
+        select.addEventListener('input', applySelectedMatch);
+      }
+      applySelectedMatch();
+    });
+  </script>
+</body>
+</html>
