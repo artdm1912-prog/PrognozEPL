@@ -8,55 +8,65 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { background-color: #0b1120; color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    input { background-color: #1e293b; border: 1px solid #334155; color: #fff; border-radius: 0.5rem; padding: 0.4rem 0.6rem; width: 100%; outline: none; }
-    input:focus { border-color: #38bdf8; }
+    input, select { background-color: #1e293b; border: 1px solid #334155; color: #fff; border-radius: 0.5rem; padding: 0.4rem 0.6rem; width: 100%; outline: none; }
+    input:focus, select:focus { border-color: #38bdf8; }
   </style>
 </head>
 <body class="p-4 pb-12">
   <div class="max-w-md mx-auto space-y-4">
     <div class="text-center py-2">
       <h1 class="text-xl font-black text-sky-400 tracking-wide uppercase">Спортивный Терминал</h1>
-      <p class="text-xs text-slate-400">5-факторная модель & Value по Пуассону</p>
+      <p class="text-xs text-slate-400">Автообновление АПЛ & Модель Пуассона</p>
+      <div id="statusBadge" class="mt-1 text-[11px] text-slate-500">Загрузка расписания...</div>
     </div>
 
+    <!-- Селектор авто-матчей -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 shadow-lg space-y-2">
+      <label class="text-xs text-sky-400 font-bold block">ВЫБЕРИТЕ МАТЧ ТУРА:</label>
+      <select id="matchSelect" onchange="onSelectMatch()" class="text-xs">
+        <option value="">-- Загрузка матчей тура --</option>
+      </select>
+    </div>
+
+    <!-- Ручная корректировка и метрики -->
     <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg space-y-3">
       <div class="grid grid-cols-2 gap-2">
         <div>
           <label class="text-xs text-red-400 font-bold block mb-1">Хозяева</label>
-          <input id="teamH" type="text" value="Арсенал">
+          <input id="teamH" type="text" value="Команда 1">
         </div>
         <div>
           <label class="text-xs text-blue-400 font-bold block mb-1">Гости</label>
-          <input id="teamA" type="text" value="Лидс">
+          <input id="teamA" type="text" value="Команда 2">
         </div>
       </div>
 
       <div class="text-xs font-semibold text-slate-400 pt-2 border-t border-slate-800">5 МЕТРИК (Хозяева / Гости):</div>
       <div class="grid grid-cols-2 gap-2 text-xs">
-        <div><label class="block text-slate-400 mb-0.5">xG</label><input id="xgH" type="number" step="0.1" value="2.7"></div>
-        <div><label class="block text-slate-400 mb-0.5">xGA / xG гостей</label><input id="xgA" type="number" step="0.1" value="0.7"></div>
+        <div><label class="block text-slate-400 mb-0.5">xG</label><input id="xgH" type="number" step="0.1" value="1.5"></div>
+        <div><label class="block text-slate-400 mb-0.5">xGA / xG гостей</label><input id="xgA" type="number" step="0.1" value="1.1"></div>
         
-        <div><label class="block text-slate-400 mb-0.5">Створ ворот</label><input id="sotH" type="number" step="0.1" value="6.9"></div>
-        <div><label class="block text-slate-400 mb-0.5">Створ гостей</label><input id="sotA" type="number" step="0.1" value="1.9"></div>
+        <div><label class="block text-slate-400 mb-0.5">Створ ворот</label><input id="sotH" type="number" step="0.1" value="4.5"></div>
+        <div><label class="block text-slate-400 mb-0.5">Створ гостей</label><input id="sotA" type="number" step="0.1" value="3.2"></div>
         
-        <div><label class="block text-slate-400 mb-0.5">Реальные голы</label><input id="gH" type="number" step="0.1" value="3.1"></div>
-        <div><label class="block text-slate-400 mb-0.5">Голы гостей</label><input id="gA" type="number" step="0.1" value="0.6"></div>
+        <div><label class="block text-slate-400 mb-0.5">Реальные голы</label><input id="gH" type="number" step="0.1" value="1.6"></div>
+        <div><label class="block text-slate-400 mb-0.5">Голы гостей</label><input id="gA" type="number" step="0.1" value="1.2"></div>
         
-        <div><label class="block text-slate-400 mb-0.5">Все удары</label><input id="shH" type="number" step="0.1" value="17.4"></div>
-        <div><label class="block text-slate-400 mb-0.5">Удары гостей</label><input id="shA" type="number" step="0.1" value="6.7"></div>
+        <div><label class="block text-slate-400 mb-0.5">Все удары</label><input id="shH" type="number" step="0.1" value="13.0"></div>
+        <div><label class="block text-slate-400 mb-0.5">Удары гостей</label><input id="shA" type="number" step="0.1" value="10.0"></div>
         
-        <div><label class="block text-slate-400 mb-0.5">Угловые</label><input id="crH" type="number" step="0.1" value="7.6"></div>
-        <div><label class="block text-slate-400 mb-0.5">Угловые гостей</label><input id="crA" type="number" step="0.1" value="2.6"></div>
+        <div><label class="block text-slate-400 mb-0.5">Угловые</label><input id="crH" type="number" step="0.1" value="5.5"></div>
+        <div><label class="block text-slate-400 mb-0.5">Угловые гостей</label><input id="crA" type="number" step="0.1" value="4.2"></div>
       </div>
 
       <div class="pt-2 border-t border-slate-800 grid grid-cols-2 gap-2 text-xs">
         <div>
           <label class="block text-slate-400 mb-0.5">Поправка хозяев (%)</label>
-          <input id="modH" type="number" value="-13">
+          <input id="modH" type="number" value="0">
         </div>
         <div>
           <label class="block text-slate-400 mb-0.5">Поправка гостей (%)</label>
-          <input id="modA" type="number" value="10">
+          <input id="modA" type="number" value="0">
         </div>
       </div>
 
@@ -65,20 +75,21 @@
       </button>
     </div>
 
+    <!-- Результат анализа -->
     <div id="resultCard" class="hidden space-y-3">
       <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow">
         <div class="text-xs font-bold text-sky-400 mb-2">1. ИТОГОВЫЙ ВЕРДИКТ</div>
         <div class="flex items-center justify-between text-center bg-slate-950 p-3 rounded-lg border border-slate-800">
           <div>
             <div class="text-[10px] text-slate-400 uppercase">Прогнозный счёт</div>
-            <div id="resScore" class="text-2xl font-black text-white">2 : 1</div>
-            <div id="resBaseScore" class="text-[10px] text-slate-500">базовый: 3 : 1</div>
+            <div id="resScore" class="text-2xl font-black text-white">0 : 0</div>
+            <div id="resBaseScore" class="text-[10px] text-slate-500">базовый: 0 : 0</div>
           </div>
           <div class="h-8 w-px bg-slate-800"></div>
           <div>
             <div class="text-[10px] text-slate-400 uppercase">Дробный xScore</div>
-            <div id="resXScore" class="text-2xl font-black text-sky-400">2.4 : 0.7</div>
-            <div id="resBaseX" class="text-[10px] text-slate-500">базовый: 2.8 : 0.6</div>
+            <div id="resXScore" class="text-2xl font-black text-sky-400">0.0 : 0.0</div>
+            <div id="resBaseX" class="text-[10px] text-slate-500">базовый: 0.0 : 0.0</div>
           </div>
         </div>
       </div>
@@ -103,13 +114,71 @@
     const tg = window.Telegram?.WebApp;
     if (tg) { tg.expand(); tg.ready(); }
 
+    let loadedMatches = [];
+    let reportText = "";
+
+    async function loadMatchesData() {
+      try {
+        const res = await fetch('matches.json?t=' + new Date().getTime());
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        loadedMatches = data.matches || [];
+
+        const select = document.getElementById("matchSelect");
+        select.innerHTML = '<option value="">-- Выберите матч из расписания --</option>';
+
+        loadedMatches.forEach((m, idx) => {
+          const opt = document.createElement("option");
+          opt.value = idx;
+          const matchDate = new Date(m.date).toLocaleDateString("ru-RU", { day: 'numeric', month: 'short' });
+          opt.textContent = `${matchDate} | ${m.home} vs ${m.away}`;
+          select.appendChild(opt);
+        });
+
+        document.getElementById("statusBadge").textContent = `🟢 Загружено матчей: ${loadedMatches.length}`;
+        if (loadedMatches.length > 0) {
+          select.value = "0";
+          onSelectMatch();
+        }
+      } catch (e) {
+        document.getElementById("statusBadge").textContent = "⚪ Ручной режим (данные API еще не собраны)";
+      }
+    }
+
+    function onSelectMatch() {
+      const idx = document.getElementById("matchSelect").value;
+      if (idx === "" || !loadedMatches[idx]) return;
+
+      const m = loadedMatches[idx];
+      document.getElementById("teamH").value = m.home;
+      document.getElementById("teamA").value = m.away;
+
+      document.getElementById("xgH").value = m.home_stats.xg;
+      document.getElementById("xgA").value = m.away_stats.xg;
+
+      document.getElementById("sotH").value = m.home_stats.sot;
+      document.getElementById("sotA").value = m.away_stats.sot;
+
+      document.getElementById("gH").value = m.home_stats.goals;
+      document.getElementById("gA").value = m.away_stats.goals;
+
+      document.getElementById("shH").value = m.home_stats.sh;
+      document.getElementById("shA").value = m.away_stats.sh;
+
+      document.getElementById("crH").value = m.home_stats.cr;
+      document.getElementById("crA").value = m.away_stats.cr;
+
+      document.getElementById("modH").value = 0;
+      document.getElementById("modA").value = 0;
+
+      calculate();
+    }
+
     function poisson(k, lambda) {
       let fact = 1;
       for (let i = 2; i <= k; i++) fact *= i;
       return (Math.pow(lambda, k) * Math.exp(-lambda)) / fact;
     }
-
-    let reportText = "";
 
     function calculate() {
       const h = document.getElementById("teamH").value;
@@ -198,6 +267,8 @@
         alert("Вне Telegram: " + reportText);
       }
     }
+
+    window.onload = loadMatchesData;
   </script>
 </body>
 </html>
