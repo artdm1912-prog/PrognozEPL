@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Match Analyst Terminal</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #0b1120; color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    input { background-color: #1e293b; border: 1px solid #334155; color: #fff; border-radius: 0.5rem; padding: 0.4rem 0.6rem; width: 100%; outline: none; }
+    input:focus { border-color: #38bdf8; }
+  </style>
+</head>
+<body class="p-4 pb-12">
+  <div class="max-w-md mx-auto space-y-4">
+    <div class="text-center py-2">
+      <h1 class="text-xl font-black text-sky-400 tracking-wide uppercase">Спортивный Терминал</h1>
+      <p class="text-xs text-slate-400">5-факторная модель & Value по Пуассону</p>
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg space-y-3">
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="text-xs text-red-400 font-bold block mb-1">Хозяева</label>
+          <input id="teamH" type="text" value="Арсенал">
+        </div>
+        <div>
+          <label class="text-xs text-blue-400 font-bold block mb-1">Гости</label>
+          <input id="teamA" type="text" value="Лидс">
+        </div>
+      </div>
+
+      <div class="text-xs font-semibold text-slate-400 pt-2 border-t border-slate-800">5 МЕТРИК (Хозяева / Гости):</div>
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <div><label class="block text-slate-400 mb-0.5">xG</label><input id="xgH" type="number" step="0.1" value="2.7"></div>
+        <div><label class="block text-slate-400 mb-0.5">xGA / xG гостей</label><input id="xgA" type="number" step="0.1" value="0.7"></div>
+        
+        <div><label class="block text-slate-400 mb-0.5">Створ ворот</label><input id="sotH" type="number" step="0.1" value="6.9"></div>
+        <div><label class="block text-slate-400 mb-0.5">Створ гостей</label><input id="sotA" type="number" step="0.1" value="1.9"></div>
+        
+        <div><label class="block text-slate-400 mb-0.5">Реальные голы</label><input id="gH" type="number" step="0.1" value="3.1"></div>
+        <div><label class="block text-slate-400 mb-0.5">Голы гостей</label><input id="gA" type="number" step="0.1" value="0.6"></div>
+        
+        <div><label class="block text-slate-400 mb-0.5">Все удары</label><input id="shH" type="number" step="0.1" value="17.4"></div>
+        <div><label class="block text-slate-400 mb-0.5">Удары гостей</label><input id="shA" type="number" step="0.1" value="6.7"></div>
+        
+        <div><label class="block text-slate-400 mb-0.5">Угловые</label><input id="crH" type="number" step="0.1" value="7.6"></div>
+        <div><label class="block text-slate-400 mb-0.5">Угловые гостей</label><input id="crA" type="number" step="0.1" value="2.6"></div>
+      </div>
+
+      <div class="pt-2 border-t border-slate-800 grid grid-cols-2 gap-2 text-xs">
+        <div>
+          <label class="block text-slate-400 mb-0.5">Поправка хозяев (%)</label>
+          <input id="modH" type="number" value="-13">
+        </div>
+        <div>
+          <label class="block text-slate-400 mb-0.5">Поправка гостей (%)</label>
+          <input id="modA" type="number" value="10">
+        </div>
+      </div>
+
+      <button onclick="calculate()" class="w-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold py-2.5 rounded-lg text-sm shadow-lg transition active:scale-95">
+        Рассчитать Карточку Матча
+      </button>
+    </div>
+
+    <div id="resultCard" class="hidden space-y-3">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow">
+        <div class="text-xs font-bold text-sky-400 mb-2">1. ИТОГОВЫЙ ВЕРДИКТ</div>
+        <div class="flex items-center justify-between text-center bg-slate-950 p-3 rounded-lg border border-slate-800">
+          <div>
+            <div class="text-[10px] text-slate-400 uppercase">Прогнозный счёт</div>
+            <div id="resScore" class="text-2xl font-black text-white">2 : 1</div>
+            <div id="resBaseScore" class="text-[10px] text-slate-500">базовый: 3 : 1</div>
+          </div>
+          <div class="h-8 w-px bg-slate-800"></div>
+          <div>
+            <div class="text-[10px] text-slate-400 uppercase">Дробный xScore</div>
+            <div id="resXScore" class="text-2xl font-black text-sky-400">2.4 : 0.7</div>
+            <div id="resBaseX" class="text-[10px] text-slate-500">базовый: 2.8 : 0.6</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow space-y-2">
+        <div class="text-xs font-bold text-sky-400">4. ПОИСК VALUE (КОРИДОР 1.75 - 2.50)</div>
+        <div id="valueList" class="space-y-1.5 text-xs"></div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow space-y-2">
+        <div class="text-xs font-bold text-amber-400">5. ИТОГОВЫЕ СТАВКИ</div>
+        <div id="recBets" class="text-xs space-y-1 text-slate-300"></div>
+      </div>
+
+      <button onclick="sendToTelegram()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-lg text-xs shadow transition active:scale-95">
+        Отправить отчёт в чат Telegram
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const tg = window.Telegram?.WebApp;
+    if (tg) { tg.expand(); tg.ready(); }
+
+    function poisson(k, lambda) {
+      let fact = 1;
+      for (let i = 2; i <= k; i++) fact *= i;
+      return (Math.pow(lambda, k) * Math.exp(-lambda)) / fact;
+    }
+
+    let reportText = "";
+
+    function calculate() {
+      const h = document.getElementById("teamH").value;
+      const a = document.getElementById("teamA").value;
+      const xgH = parseFloat(document.getElementById("xgH").value) || 0;
+      const xgA = parseFloat(document.getElementById("xgA").value) || 0;
+      const sotH = parseFloat(document.getElementById("sotH").value) || 0;
+      const sotA = parseFloat(document.getElementById("sotA").value) || 0;
+      const gH = parseFloat(document.getElementById("gH").value) || 0;
+      const gA = parseFloat(document.getElementById("gA").value) || 0;
+      const shH = parseFloat(document.getElementById("shH").value) || 0;
+      const shA = parseFloat(document.getElementById("shA").value) || 0;
+      const crH = parseFloat(document.getElementById("crH").value) || 0;
+      const crA = parseFloat(document.getElementById("crA").value) || 0;
+      const modH = 1 + (parseFloat(document.getElementById("modH").value) || 0) / 100;
+      const modA = 1 + (parseFloat(document.getElementById("modA").value) || 0) / 100;
+
+      const m1H = xgH, m1A = xgA;
+      const m2H = sotH * 0.38, m2A = sotA * 0.28;
+      const m3H = gH, m3A = gA;
+      const m4H = shH * 0.14, m4A = shA * 0.09;
+      const m5H = crH * 0.34, m5A = crA * 0.23;
+
+      const baseXH = m1H*0.35 + m2H*0.25 + m3H*0.20 + m4H*0.10 + m5H*0.10;
+      const baseA = m1A*0.35 + m2A*0.25 + m3A*0.20 + m4A*0.10 + m5A*0.10;
+
+      const finH = baseXH * modH;
+      const finA = baseA * modA;
+
+      const scoreMod = `${Math.round(finH)} : ${Math.round(finA)}`;
+      const scoreBase = `${Math.round(baseXH)} : ${Math.round(baseA)}`;
+
+      document.getElementById("resScore").innerText = scoreMod;
+      document.getElementById("resBaseScore").innerText = `базовый: ${scoreBase}`;
+      document.getElementById("resXScore").innerText = `${finH.toFixed(1)} : ${finA.toFixed(1)}`;
+      document.getElementById("resBaseX").innerText = `базовый: ${baseXH.toFixed(1)} : ${baseA.toFixed(1)}`;
+
+      let pP1 = 0, pX = 0, pP2 = 0, pTb25 = 0, pBtts = 0, pItb2H = 0, pFora1 = 0;
+      for (let i = 0; i <= 5; i++) {
+        for (let j = 0; j <= 5; j++) {
+          const prob = poisson(i, finH) * poisson(j, finA);
+          if (i > j) pP1 += prob;
+          if (i === j) pX += prob;
+          if (i < j) pP2 += prob;
+          if (i + j > 2.5) pTb25 += prob;
+          if (i >= 1 && j >= 1) pBtts += prob;
+          if (i >= 2) pItb2H += prob;
+          if (i - j >= 2) pFora1 += prob;
+        }
+      }
+
+      const markets = [
+        { name: `ИТБ 2.0 «${h}»`, prob: pItb2H, line: 1.82 },
+        { name: `ТБ (2.5) общий`, prob: pTb25, line: 1.80 },
+        { name: `Обе забьют (Да)`, prob: pBtts, line: 1.88 },
+        { name: `Фора 1 (-1.25 / -1.5)`, prob: pFora1, line: 2.05 }
+      ];
+
+      let valHtml = "";
+      markets.forEach(m => {
+        const fair = 1 / m.prob;
+        const edge = ((m.line / fair) - 1) * 100;
+        const isVal = edge >= 5;
+        valHtml += `
+          <div class="flex items-center justify-between p-2 rounded ${isVal ? 'bg-emerald-950/60 border border-emerald-500/40 text-emerald-400' : 'bg-slate-950 text-slate-400'}">
+            <span>${isVal ? '🟢 ' : '• '}${m.name}</span>
+            <span class="font-bold">${m.line} <span class="text-[10px] font-normal">(${edge >= 0 ? '+' : ''}${edge.toFixed(1)}%)</span></span>
+          </div>`;
+      });
+      document.getElementById("valueList").innerHTML = valHtml;
+
+      document.getElementById("recBets").innerHTML = `
+        <div>★ <b>Голы:</b> ИТБ 2.0 «${h}» @ 1.82 (возврат при 2, xScore ${finH.toFixed(1)})</div>
+        <div>★ <b>Исход:</b> Фора 1 (-1.25 / -1.5) @ 2.05 (разница +${(finH-finA).toFixed(1)} мяча)</div>
+      `;
+
+      reportText = `КАРТОЧКА: ${h} - ${a}\nСчёт: ${scoreMod} (xScore ${finH.toFixed(1)}:${finA.toFixed(1)})\nРекомендация: ИТБ 2.0 «${h}» @ 1.82`;
+
+      document.getElementById("resultCard").classList.remove("hidden");
+    }
+
+    function sendToTelegram() {
+      if (tg && tg.sendData) {
+        tg.sendData(reportText);
+      } else {
+        alert("Вне Telegram: " + reportText);
+      }
+    }
+  </script>
+</body>
+</html>
