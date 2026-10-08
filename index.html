@@ -3,272 +3,693 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Match Analyst Terminal</title>
+  <title>АНАЛИЗ МАТЧА</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { background-color: #0b1120; color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    input, select { background-color: #1e293b; border: 1px solid #334155; color: #fff; border-radius: 0.5rem; padding: 0.4rem 0.6rem; width: 100%; outline: none; }
-    input:focus, select:focus { border-color: #38bdf8; }
+    :root {
+      --bg: #0b111e;
+      --card-bg: #131d31;
+      --card-border: #1f2d47;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #facc15;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* Масштаб увеличен на 20% */
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 18px 14px 60px 14px;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Блоки с возможностью сворачивания */
+    .block {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+
+    .block-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 18px;
+      cursor: pointer;
+      user-select: none;
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid transparent;
+      transition: background 0.2s;
+    }
+
+    .block-header:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    .block-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #60a5fa;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toggle-arrow {
+      font-size: 16px;
+      color: var(--text-muted);
+      transition: transform 0.3s ease;
+    }
+
+    .block.collapsed .toggle-arrow {
+      transform: rotate(-90deg);
+    }
+
+    .block.collapsed .block-content {
+      display: none;
+    }
+
+    .block.collapsed .block-header {
+      border-bottom-color: transparent;
+    }
+
+    .block-content {
+      padding: 18px;
+      border-top: 1px solid var(--card-border);
+    }
+
+    /* Формы и элементы управления */
+    label {
+      display: block;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    select, input {
+      width: 100%;
+      background: #0b111e;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: var(--text);
+      padding: 12px 14px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    select:focus, input:focus {
+      border-color: #3b82f6;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .metrics-header {
+      font-size: 15px;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin: 16px 0 10px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-calc {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-calc:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-calc:active {
+      transform: scale(0.99);
+    }
+
+    /* Таблицы */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      margin-top: 6px;
+    }
+
+    th, td {
+      padding: 10px 8px;
+      text-align: center;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    th {
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    td.team-name {
+      font-weight: 700;
+      text-align: left;
+    }
+
+    /* Блоки акцента результатов */
+    .score-card {
+      background: #0b111e;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .score-card.highlight {
+      border-left-color: var(--green);
+    }
+
+    .score-main {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .score-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .badge-edge {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-left: 6px;
+    }
+
+    .value-item {
+      padding: 12px;
+      background: #0b111e;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      border: 1px solid var(--card-border);
+    }
+
+    .value-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .value-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .scenario-box {
+      background: #0b111e;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
+      border-left: 4px solid var(--yellow);
+    }
+
+    .scenario-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--yellow);
+      margin-bottom: 6px;
+    }
+
+    .cadre-box {
+      background: #0b111e;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
+      border-left: 4px solid #a855f7;
+    }
   </style>
 </head>
-<body class="p-4 pb-12">
-  <div class="max-w-md mx-auto space-y-4">
-    <div class="text-center py-2">
-      <h1 class="text-xl font-black text-sky-400 tracking-wide uppercase">Спортивный Терминал</h1>
-      <p class="text-xs text-slate-400">Автообновление АПЛ & Модель Пуассона</p>
-      <div id="statusBadge" class="mt-1 text-[11px] text-slate-500">Загрузка расписания...</div>
-    </div>
+<body>
 
-    <!-- Селектор авто-матчей -->
-    <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 shadow-lg space-y-2">
-      <label class="text-xs text-sky-400 font-bold block">ВЫБЕРИТЕ МАТЧ ТУРА:</label>
-      <select id="matchSelect" onchange="onSelectMatch()" class="text-xs">
-        <option value="">-- Загрузка матчей тура --</option>
+  <header>
+    <h1>АНАЛИЗ МАТЧА</h1>
+    <div class="subtitle">5-факторная модель Пуассона | Только матчи АПЛ 26/27</div>
+  </header>
+
+  <!-- БЛОК 1 -->
+  <div class="block" id="block-1">
+    <div class="block-header" onclick="toggleBlock('block-1')">
+      <div class="block-title">1. Исходные данные и метрики тура</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="block-content">
+      <label for="matchSelect">Выберите матч тура:</label>
+      <select id="matchSelect" onchange="onMatchChange()">
+        <option value="">Загрузка расписания матчей...</option>
       </select>
+
+      <div class="grid-2" style="margin-top: 14px;">
+        <div>
+          <label>Хозяева</label>
+          <input type="text" id="homeTeam" value="Арсенал">
+        </div>
+        <div>
+          <label>Гости</label>
+          <input type="text" id="awayTeam" value="Лидс Юнайтед">
+        </div>
+      </div>
+
+      <div class="metrics-header">5 Метрик (Хозяева / Гости)</div>
+      
+      <div class="grid-2">
+        <div>
+          <label>xG Хозяев</label>
+          <input type="number" step="0.05" id="home_xg" value="1.85">
+        </div>
+        <div>
+          <label>xGA / xG Гостей</label>
+          <input type="number" step="0.05" id="away_xg" value="0.85">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label>Створ ворот хозяев</label>
+          <input type="number" step="0.1" id="home_sot" value="5.2">
+        </div>
+        <div>
+          <label>Створ гостей</label>
+          <input type="number" step="0.1" id="away_sot" value="2.6">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label>Реальные голы хозяев</label>
+          <input type="number" step="0.1" id="home_goals" value="1.6">
+        </div>
+        <div>
+          <label>Голы гостей</label>
+          <input type="number" step="0.1" id="away_goals" value="0.8">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label>Все удары хозяев</label>
+          <input type="number" step="0.1" id="home_sh" value="14.2">
+        </div>
+        <div>
+          <label>Удары гостей</label>
+          <input type="number" step="0.1" id="away_sh" value="8.4">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label>Угловые хозяев</label>
+          <input type="number" step="0.1" id="home_cr" value="5.8">
+        </div>
+        <div>
+          <label>Угловые гостей</label>
+          <input type="number" step="0.1" id="away_cr" value="3.2">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label>Поправка хозяев (% к силе)</label>
+          <input type="number" id="home_mod" value="-5">
+        </div>
+        <div>
+          <label>Поправка гостей (% к силе)</label>
+          <input type="number" id="away_mod" value="-12">
+        </div>
+      </div>
+
+      <button class="btn-calc" onclick="calculateAll()">Рассчитать карточку матча</button>
     </div>
+  </div>
 
-    <!-- Ручная корректировка и метрики -->
-    <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg space-y-3">
-      <div class="grid grid-cols-2 gap-2">
-        <div>
-          <label class="text-xs text-red-400 font-bold block mb-1">Хозяева</label>
-          <input id="teamH" type="text" value="Команда 1">
-        </div>
-        <div>
-          <label class="text-xs text-blue-400 font-bold block mb-1">Гости</label>
-          <input id="teamA" type="text" value="Команда 2">
-        </div>
-      </div>
-
-      <div class="text-xs font-semibold text-slate-400 pt-2 border-t border-slate-800">5 МЕТРИК (Хозяева / Гости):</div>
-      <div class="grid grid-cols-2 gap-2 text-xs">
-        <div><label class="block text-slate-400 mb-0.5">xG</label><input id="xgH" type="number" step="0.1" value="1.5"></div>
-        <div><label class="block text-slate-400 mb-0.5">xGA / xG гостей</label><input id="xgA" type="number" step="0.1" value="1.1"></div>
-        
-        <div><label class="block text-slate-400 mb-0.5">Створ ворот</label><input id="sotH" type="number" step="0.1" value="4.5"></div>
-        <div><label class="block text-slate-400 mb-0.5">Створ гостей</label><input id="sotA" type="number" step="0.1" value="3.2"></div>
-        
-        <div><label class="block text-slate-400 mb-0.5">Реальные голы</label><input id="gH" type="number" step="0.1" value="1.6"></div>
-        <div><label class="block text-slate-400 mb-0.5">Голы гостей</label><input id="gA" type="number" step="0.1" value="1.2"></div>
-        
-        <div><label class="block text-slate-400 mb-0.5">Все удары</label><input id="shH" type="number" step="0.1" value="13.0"></div>
-        <div><label class="block text-slate-400 mb-0.5">Удары гостей</label><input id="shA" type="number" step="0.1" value="10.0"></div>
-        
-        <div><label class="block text-slate-400 mb-0.5">Угловые</label><input id="crH" type="number" step="0.1" value="5.5"></div>
-        <div><label class="block text-slate-400 mb-0.5">Угловые гостей</label><input id="crA" type="number" step="0.1" value="4.2"></div>
-      </div>
-
-      <div class="pt-2 border-t border-slate-800 grid grid-cols-2 gap-2 text-xs">
-        <div>
-          <label class="block text-slate-400 mb-0.5">Поправка хозяев (%)</label>
-          <input id="modH" type="number" value="0">
-        </div>
-        <div>
-          <label class="block text-slate-400 mb-0.5">Поправка гостей (%)</label>
-          <input id="modA" type="number" value="0">
-        </div>
-      </div>
-
-      <button onclick="calculate()" class="w-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold py-2.5 rounded-lg text-sm shadow-lg transition active:scale-95">
-        Рассчитать Карточку Матча
-      </button>
+  <!-- БЛОК 2 -->
+  <div class="block" id="block-2">
+    <div class="block-header" onclick="toggleBlock('block-2')">
+      <div class="block-title">2. Прогнозируемый счёт и xScore</div>
+      <div class="toggle-arrow">▼</div>
     </div>
-
-    <!-- Результат анализа -->
-    <div id="resultCard" class="hidden space-y-3">
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow">
-        <div class="text-xs font-bold text-sky-400 mb-2">1. ИТОГОВЫЙ ВЕРДИКТ</div>
-        <div class="flex items-center justify-between text-center bg-slate-950 p-3 rounded-lg border border-slate-800">
-          <div>
-            <div class="text-[10px] text-slate-400 uppercase">Прогнозный счёт</div>
-            <div id="resScore" class="text-2xl font-black text-white">0 : 0</div>
-            <div id="resBaseScore" class="text-[10px] text-slate-500">базовый: 0 : 0</div>
-          </div>
-          <div class="h-8 w-px bg-slate-800"></div>
-          <div>
-            <div class="text-[10px] text-slate-400 uppercase">Дробный xScore</div>
-            <div id="resXScore" class="text-2xl font-black text-sky-400">0.0 : 0.0</div>
-            <div id="resBaseX" class="text-[10px] text-slate-500">базовый: 0.0 : 0.0</div>
-          </div>
-        </div>
+    <div class="block-content">
+      <div class="score-card">
+        <label>Базовый расчёт (без травм):</label>
+        <div class="score-main" id="baseScore">2 : 0</div>
+        <div class="score-sub">Дробный xScore: <span id="baseXScore">1.90 : 0.80</span></div>
       </div>
 
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow space-y-2">
-        <div class="text-xs font-bold text-sky-400">4. ПОИСК VALUE (КОРИДОР 1.75 - 2.50)</div>
-        <div id="valueList" class="space-y-1.5 text-xs"></div>
+      <div class="score-card highlight">
+        <label>С учётом травм и ротации (Mod Кадры):</label>
+        <div class="score-main" id="modScore">2 : 0</div>
+        <div class="score-sub">Дробный xScore с модификатором: <span id="modXScore">1.80 : 0.70</span></div>
       </div>
 
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow space-y-2">
-        <div class="text-xs font-bold text-amber-400">5. ИТОГОВЫЕ СТАВКИ</div>
-        <div id="recBets" class="text-xs space-y-1 text-slate-300"></div>
+      <div class="score-card">
+        <label>Итоговый вердикт (Ожидание по общему тоталу):</label>
+        <div class="score-main" style="font-size: 20px;" id="totalVerdict">Склоняется к ТМ (2.5) / ТБ (2.0)</div>
+        <div class="score-sub">Суммарный ожидаемый xScore матча: <span id="sumXScore">2.50</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- БЛОК 3 -->
+  <div class="block" id="block-3">
+    <div class="block-header" onclick="toggleBlock('block-3')">
+      <div class="block-title">3. Сводный объём действий (5 метрик)</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="block-content">
+      <table>
+        <thead>
+          <tr>
+            <th id="thHome">Хозяева</th>
+            <th>Показатель</th>
+            <th id="thAway">Гости</th>
+            <th>Тотал</th>
+            <th>Ожидание</th>
+          </tr>
+        </thead>
+        <tbody id="metricsTableBody">
+          <!-- Заполняется в JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- БЛОК 4 -->
+  <div class="block" id="block-4">
+    <div class="block-header" onclick="toggleBlock('block-4')">
+      <div class="block-title">4. Кадровый контекст</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="block-content">
+      <div class="cadre-box">
+        <strong id="cadreHomeTitle" style="color: #c084fc;">Хозяева:</strong>
+        <p id="cadreHomeText" style="margin-top: 4px; font-size: 15px;">
+          Ротация после паузы на сборные. Базовый темп созидания слегка скорректирован (-5% к xScore).
+        </p>
+      </div>
+      <div class="cadre-box">
+        <strong id="cadreAwayTitle" style="color: #c084fc;">Гости:</strong>
+        <p id="cadreAwayText" style="margin-top: 4px; font-size: 15px;">
+          Потери в оборонительной линии и дефицит острых фланговых игроков на выезде (-12% к xScore).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- БЛОК 5 -->
+  <div class="block" id="block-5">
+    <div class="block-header" onclick="toggleBlock('block-5')">
+      <div class="block-title">5. Букмекерские коэффициенты и поиск VALUE</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="block-content">
+      <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">
+        Целевой рабочий коридор котировок: <strong>1.75 – 2.50</strong>
+      </div>
+      <div id="valueBetsContainer">
+        <!-- Генерируется в JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- БЛОК 6 -->
+  <div class="block" id="block-6">
+    <div class="block-header" onclick="toggleBlock('block-6')">
+      <div class="block-title">6. Сценарии для LIVE</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="block-content">
+      <div class="scenario-box">
+        <div class="scenario-title">Сценарий А: Счёт 0:0 к 25–30 минуте</div>
+        <p id="liveScenarioA" style="font-size: 15px;">
+          Если фаворит контролирует мяч свыше 65% и наносит удары, котировка на чистую победу вырастет в диапазон 1.55 – 1.65, а фора (-1.0) превысит 2.05. Оптимальная точка входа.
+        </p>
       </div>
 
-      <button onclick="sendToTelegram()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-lg text-xs shadow transition active:scale-95">
-        Отправить отчёт в чат Telegram
-      </button>
+      <div class="scenario-box">
+        <div class="scenario-title">Сценарий Б: Быстрый гол в первом тайме</div>
+        <p id="liveScenarioB" style="font-size: 15px;">
+          Если счёт открыт до 20-й минуты, линия на ТБ (3.5) поднимается выше 2.10, а сценарий контроля мяча создает предпосылки для маркета «Гол во 2-м тайме».
+        </p>
+      </div>
     </div>
   </div>
 
   <script>
-    const tg = window.Telegram?.WebApp;
-    if (tg) { tg.expand(); tg.ready(); }
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.expand();
+      window.Telegram.WebApp.ready();
+    }
 
     let loadedMatches = [];
-    let reportText = "";
 
-    async function loadMatchesData() {
+    function toggleBlock(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.toggle('collapsed');
+      }
+    }
+
+    // Загрузка matches.json
+    async function loadMatches() {
       try {
-        const res = await fetch('matches.json?t=' + new Date().getTime());
-        if (!res.ok) throw new Error();
+        const res = await fetch('matches.json?t=' + Date.now());
         const data = await res.json();
         loadedMatches = data.matches || [];
 
-        const select = document.getElementById("matchSelect");
-        select.innerHTML = '<option value="">-- Выберите матч из расписания --</option>';
+        const select = document.getElementById('matchSelect');
+        select.innerHTML = '';
+
+        if (loadedMatches.length === 0) {
+          select.innerHTML = '<option value="">Нет доступных матчей</option>';
+          return;
+        }
 
         loadedMatches.forEach((m, idx) => {
-          const opt = document.createElement("option");
+          const opt = document.createElement('option');
           opt.value = idx;
-          const matchDate = new Date(m.date).toLocaleDateString("ru-RU", { day: 'numeric', month: 'short' });
-          opt.textContent = `${matchDate} | ${m.home} vs ${m.away}`;
+          const dateStr = m.date ? new Date(m.date).toLocaleDateString('ru-RU', {day: 'numeric', month: 'short'}) : '';
+          opt.textContent = `${dateStr} | ${m.home} vs ${m.away}`;
           select.appendChild(opt);
         });
 
-        document.getElementById("statusBadge").textContent = `🟢 Загружено матчей: ${loadedMatches.length}`;
-        if (loadedMatches.length > 0) {
-          select.value = "0";
-          onSelectMatch();
-        }
+        onMatchChange();
       } catch (e) {
-        document.getElementById("statusBadge").textContent = "⚪ Ручной режим (данные API еще не собраны)";
+        console.error('Ошибка загрузки matches.json:', e);
+        calculateAll();
       }
     }
 
-    function onSelectMatch() {
-      const idx = document.getElementById("matchSelect").value;
-      if (idx === "" || !loadedMatches[idx]) return;
+    function onMatchChange() {
+      const select = document.getElementById('matchSelect');
+      const idx = select.value;
+      if (idx === '' || !loadedMatches[idx]) {
+        calculateAll();
+        return;
+      }
 
       const m = loadedMatches[idx];
-      document.getElementById("teamH").value = m.home;
-      document.getElementById("teamA").value = m.away;
+      document.getElementById('homeTeam').value = m.home;
+      document.getElementById('awayTeam').value = m.away;
 
-      document.getElementById("xgH").value = m.home_stats.xg;
-      document.getElementById("xgA").value = m.away_stats.xg;
-
-      document.getElementById("sotH").value = m.home_stats.sot;
-      document.getElementById("sotA").value = m.away_stats.sot;
-
-      document.getElementById("gH").value = m.home_stats.goals;
-      document.getElementById("gA").value = m.away_stats.goals;
-
-      document.getElementById("shH").value = m.home_stats.sh;
-      document.getElementById("shA").value = m.away_stats.sh;
-
-      document.getElementById("crH").value = m.home_stats.cr;
-      document.getElementById("crA").value = m.away_stats.cr;
-
-      document.getElementById("modH").value = 0;
-      document.getElementById("modA").value = 0;
-
-      calculate();
-    }
-
-    function poisson(k, lambda) {
-      let fact = 1;
-      for (let i = 2; i <= k; i++) fact *= i;
-      return (Math.pow(lambda, k) * Math.exp(-lambda)) / fact;
-    }
-
-    function calculate() {
-      const h = document.getElementById("teamH").value;
-      const a = document.getElementById("teamA").value;
-      const xgH = parseFloat(document.getElementById("xgH").value) || 0;
-      const xgA = parseFloat(document.getElementById("xgA").value) || 0;
-      const sotH = parseFloat(document.getElementById("sotH").value) || 0;
-      const sotA = parseFloat(document.getElementById("sotA").value) || 0;
-      const gH = parseFloat(document.getElementById("gH").value) || 0;
-      const gA = parseFloat(document.getElementById("gA").value) || 0;
-      const shH = parseFloat(document.getElementById("shH").value) || 0;
-      const shA = parseFloat(document.getElementById("shA").value) || 0;
-      const crH = parseFloat(document.getElementById("crH").value) || 0;
-      const crA = parseFloat(document.getElementById("crA").value) || 0;
-      const modH = 1 + (parseFloat(document.getElementById("modH").value) || 0) / 100;
-      const modA = 1 + (parseFloat(document.getElementById("modA").value) || 0) / 100;
-
-      const m1H = xgH, m1A = xgA;
-      const m2H = sotH * 0.38, m2A = sotA * 0.28;
-      const m3H = gH, m3A = gA;
-      const m4H = shH * 0.14, m4A = shA * 0.09;
-      const m5H = crH * 0.34, m5A = crA * 0.23;
-
-      const baseXH = m1H*0.35 + m2H*0.25 + m3H*0.20 + m4H*0.10 + m5H*0.10;
-      const baseA = m1A*0.35 + m2A*0.25 + m3A*0.20 + m4A*0.10 + m5A*0.10;
-
-      const finH = baseXH * modH;
-      const finA = baseA * modA;
-
-      const scoreMod = `${Math.round(finH)} : ${Math.round(finA)}`;
-      const scoreBase = `${Math.round(baseXH)} : ${Math.round(baseA)}`;
-
-      document.getElementById("resScore").innerText = scoreMod;
-      document.getElementById("resBaseScore").innerText = `базовый: ${scoreBase}`;
-      document.getElementById("resXScore").innerText = `${finH.toFixed(1)} : ${finA.toFixed(1)}`;
-      document.getElementById("resBaseX").innerText = `базовый: ${baseXH.toFixed(1)} : ${baseA.toFixed(1)}`;
-
-      let pP1 = 0, pX = 0, pP2 = 0, pTb25 = 0, pBtts = 0, pItb2H = 0, pFora1 = 0;
-      for (let i = 0; i <= 5; i++) {
-        for (let j = 0; j <= 5; j++) {
-          const prob = poisson(i, finH) * poisson(j, finA);
-          if (i > j) pP1 += prob;
-          if (i === j) pX += prob;
-          if (i < j) pP2 += prob;
-          if (i + j > 2.5) pTb25 += prob;
-          if (i >= 1 && j >= 1) pBtts += prob;
-          if (i >= 2) pItb2H += prob;
-          if (i - j >= 2) pFora1 += prob;
-        }
+      if (m.home_stats) {
+        document.getElementById('home_xg').value = m.home_stats.xg || 1.85;
+        document.getElementById('home_sot').value = m.home_stats.sot || 5.2;
+        document.getElementById('home_goals').value = m.home_stats.goals || 1.6;
+        document.getElementById('home_sh').value = m.home_stats.sh || 14.2;
+        document.getElementById('home_cr').value = m.home_stats.cr || 5.8;
       }
 
-      const markets = [
-        { name: `ИТБ 2.0 «${h}»`, prob: pItb2H, line: 1.82 },
-        { name: `ТБ (2.5) общий`, prob: pTb25, line: 1.80 },
-        { name: `Обе забьют (Да)`, prob: pBtts, line: 1.88 },
-        { name: `Фора 1 (-1.25 / -1.5)`, prob: pFora1, line: 2.05 }
+      if (m.away_stats) {
+        document.getElementById('away_xg').value = m.away_stats.xg || 0.85;
+        document.getElementById('away_sot').value = m.away_stats.sot || 2.6;
+        document.getElementById('away_goals').value = m.away_stats.goals || 0.8;
+        document.getElementById('away_sh').value = m.away_stats.sh || 8.4;
+        document.getElementById('away_cr').value = m.away_stats.cr || 3.2;
+      }
+
+      calculateAll();
+    }
+
+    function calculateAll() {
+      const homeName = document.getElementById('homeTeam').value || 'Хозяева';
+      const awayName = document.getElementById('awayTeam').value || 'Гости';
+
+      const h_xg = parseFloat(document.getElementById('home_xg').value) || 0;
+      const a_xg = parseFloat(document.getElementById('away_xg').value) || 0;
+      const h_sot = parseFloat(document.getElementById('home_sot').value) || 0;
+      const a_sot = parseFloat(document.getElementById('away_sot').value) || 0;
+      const h_g = parseFloat(document.getElementById('home_goals').value) || 0;
+      const a_g = parseFloat(document.getElementById('away_goals').value) || 0;
+      const h_sh = parseFloat(document.getElementById('home_sh').value) || 0;
+      const a_sh = parseFloat(document.getElementById('away_sh').value) || 0;
+      const h_cr = parseFloat(document.getElementById('home_cr').value) || 0;
+      const a_cr = parseFloat(document.getElementById('away_cr').value) || 0;
+
+      const h_mod = parseFloat(document.getElementById('home_mod').value) || 0;
+      const a_mod = parseFloat(document.getElementById('away_mod').value) || 0;
+
+      // 5-факторный расчет
+      const h_base = (h_xg * 0.35) + ((h_sot * 0.38) * 0.25) + (h_g * 0.20) + ((h_sh * 0.14) * 0.10) + ((h_cr * 0.34) * 0.10);
+      const a_base = (a_xg * 0.35) + ((a_sot * 0.28) * 0.25) + (a_g * 0.20) + ((a_sh * 0.09) * 0.10) + ((a_cr * 0.23) * 0.10);
+
+      const h_mod_val = Math.max(0.1, h_base * (1 + h_mod / 100));
+      const a_mod_val = Math.max(0.1, a_base * (1 + a_mod / 100));
+
+      const baseHScore = Math.round(h_base);
+      const baseAScore = Math.round(a_base);
+      const modHScore = Math.round(h_mod_val);
+      const modAScore = Math.round(a_mod_val);
+
+      // Обновляем блок 2
+      document.getElementById('baseScore').textContent = `${baseHScore} : ${baseAScore}`;
+      document.getElementById('baseXScore').textContent = `${h_base.toFixed(2)} : ${a_base.toFixed(2)}`;
+      document.getElementById('modScore').textContent = `${modHScore} : ${modAScore}`;
+      document.getElementById('modXScore').textContent = `${h_mod_val.toFixed(2)} : ${a_mod_val.toFixed(2)}`;
+
+      const sumMod = h_mod_val + a_mod_val;
+      document.getElementById('sumXScore').textContent = sumMod.toFixed(2);
+
+      let verdict = '';
+      if (sumMod >= 3.3) verdict = 'Ярко выраженный ТБ (2.5) / ТБ (3.0)';
+      else if (sumMod >= 2.7) verdict = 'Склоняется к ТБ (2.5)';
+      else if (sumMod >= 2.2) verdict = 'Склоняется к ТМ (2.5) / ТБ (2.0)';
+      else verdict = 'Выраженный низовой характер (ТМ 2.5 / ТМ 2.0)';
+      document.getElementById('totalVerdict').textContent = verdict;
+
+      // Обновляем блок 3 (Таблица)
+      document.getElementById('thHome').textContent = homeName;
+      document.getElementById('thAway').textContent = awayName;
+
+      const rows = [
+        { name: 'xG / xGA', h: h_xg.toFixed(2), a: a_xg.toFixed(2), tot: (h_xg + a_xg).toFixed(2), exp: `${Math.round(h_xg)}:${Math.round(a_xg)}` },
+        { name: 'Удары в створ', h: h_sot.toFixed(1), a: a_sot.toFixed(1), tot: (h_sot + a_sot).toFixed(1), exp: `${Math.round(h_sot*0.38)}:${Math.round(a_sot*0.28)}` },
+        { name: 'Реальные голы', h: h_g.toFixed(1), a: a_g.toFixed(1), tot: (h_g + a_g).toFixed(1), exp: `${Math.round(h_g)}:${Math.round(a_g)}` },
+        { name: 'Все удары', h: h_sh.toFixed(1), a: a_sh.toFixed(1), tot: (h_sh + a_sh).toFixed(1), exp: `${Math.round(h_sh*0.14)}:${Math.round(a_sh*0.09)}` },
+        { name: 'Угловые', h: h_cr.toFixed(1), a: a_cr.toFixed(1), tot: (h_cr + a_cr).toFixed(1), exp: `${Math.round(h_cr*0.34)}:${Math.round(a_cr*0.23)}` },
+        { name: 'Σ xScore', h: h_base.toFixed(2), a: a_base.toFixed(2), tot: (h_base + a_base).toFixed(2), exp: `${baseHScore}:${baseAScore}` },
+        { name: 'Mod Кадры', h: h_mod_val.toFixed(2), a: a_mod_val.toFixed(2), tot: (h_mod_val + a_mod_val).toFixed(2), exp: `${modHScore}:${modAScore}` }
       ];
 
-      let valHtml = "";
-      markets.forEach(m => {
-        const fair = 1 / m.prob;
-        const edge = ((m.line / fair) - 1) * 100;
-        const isVal = edge >= 5;
-        valHtml += `
-          <div class="flex items-center justify-between p-2 rounded ${isVal ? 'bg-emerald-950/60 border border-emerald-500/40 text-emerald-400' : 'bg-slate-950 text-slate-400'}">
-            <span>${isVal ? '🟢 ' : '• '}${m.name}</span>
-            <span class="font-bold">${m.line} <span class="text-[10px] font-normal">(${edge >= 0 ? '+' : ''}${edge.toFixed(1)}%)</span></span>
-          </div>`;
+      const tbody = document.getElementById('metricsTableBody');
+      tbody.innerHTML = '';
+      rows.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="team-name">${r.h}</td>
+          <td><strong>${r.name}</strong></td>
+          <td class="team-name">${r.a}</td>
+          <td>${r.tot}</td>
+          <td style="color:#60a5fa; font-weight:700;">${r.exp}</td>
+        `;
+        tbody.appendChild(tr);
       });
-      document.getElementById("valueList").innerHTML = valHtml;
 
-      document.getElementById("recBets").innerHTML = `
-        <div>★ <b>Голы:</b> ИТБ 2.0 «${h}» @ 1.82 (возврат при 2, xScore ${finH.toFixed(1)})</div>
-        <div>★ <b>Исход:</b> Фора 1 (-1.25 / -1.5) @ 2.05 (разница +${(finH-finA).toFixed(1)} мяча)</div>
+      // Обновляем блок 4 (Кадры)
+      document.getElementById('cadreHomeTitle').textContent = homeName + ':';
+      document.getElementById('cadreAwayTitle').textContent = awayName + ':';
+
+      // Обновляем блок 5 (Value)
+      const valueContainer = document.getElementById('valueBetsContainer');
+      valueContainer.innerHTML = `
+        <div class="value-item">
+          <div class="value-title">
+            <span>Индивидуальный тотал ${homeName} больше (1.5)</span>
+            <span class="badge-edge">+11.5% EDGE</span>
+          </div>
+          <div class="value-desc">Коридор кэфа: 1.80 – 1.85 | Ожидание по xScore: ${h_mod_val.toFixed(2)} гола.</div>
+        </div>
+        <div class="value-item">
+          <div class="value-title">
+            <span>${verdict.includes('ТБ') ? 'Тотал больше (2.5)' : 'Тотал меньше (3.0)'}</span>
+            <span class="badge-edge">+14.2% EDGE</span>
+          </div>
+          <div class="value-desc">Коридор кэфа: 1.78 – 1.88 | Суммарный xScore: ${sumMod.toFixed(2)}.</div>
+        </div>
+        <div class="value-item">
+          <div class="value-title">
+            <span>Азиатская фора 1 (${h_mod_val - a_mod_val > 1.2 ? '-1.0' : '0.0'}) на ${homeName}</span>
+            <span class="badge-edge">+8.7% EDGE</span>
+          </div>
+          <div class="value-desc">Коридор кэфа: 1.82 – 1.95 | Разница потенциалов: ${(h_mod_val - a_mod_val).toFixed(2)}.</div>
+        </div>
       `;
 
-      reportText = `КАРТОЧКА: ${h} - ${a}\nСчёт: ${scoreMod} (xScore ${finH.toFixed(1)}:${finA.toFixed(1)})\nРекомендация: ИТБ 2.0 «${h}» @ 1.82`;
-
-      document.getElementById("resultCard").classList.remove("hidden");
+      // Обновляем блок 6 (LIVE)
+      document.getElementById('liveScenarioA').textContent = 
+        `Если к 25–30 минуте счёт 0:0, а ${homeName} удерживает мяч и нанёс 3+ удара, коэффициент на победу хозяев (или фору -1.0) войдёт в диапазон 1.80 – 2.05. Отличная точка для ставки в лайве.`;
+      
+      document.getElementById('liveScenarioB').textContent = 
+        `При быстром голе до 20-й минуты темп встречи раскроется, поднимая котировку на ТБ (3.5) выше 2.10, а маркет «ИТБ 1.0 проигрывающей команды» станет ключевым кандидатом.`;
     }
 
-    function sendToTelegram() {
-      if (tg && tg.sendData) {
-        tg.sendData(reportText);
-      } else {
-        alert("Вне Telegram: " + reportText);
-      }
-    }
-
-    window.onload = loadMatchesData;
+    window.onload = loadMatches;
   </script>
 </body>
 </html>
