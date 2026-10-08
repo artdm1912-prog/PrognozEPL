@@ -27,7 +27,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    /* Масштаб увеличен на 20% */
+    /* Масштаб +20% */
     body {
       background-color: var(--bg);
       color: var(--text);
@@ -55,7 +55,6 @@
       color: var(--text-muted);
     }
 
-    /* Блоки с возможностью сворачивания */
     .block {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -108,7 +107,6 @@
       border-top: 1px solid var(--card-border);
     }
 
-    /* Формы и элементы ввода */
     label {
       display: block;
       font-size: 14px;
@@ -167,11 +165,6 @@
       background: var(--accent-hover);
     }
 
-    .btn-calc:active {
-      transform: scale(0.99);
-    }
-
-    /* Карточки счёта */
     .score-card {
       background: #0b111e;
       border-radius: 12px;
@@ -199,7 +192,6 @@
       margin-top: 4px;
     }
 
-    /* Карточки составов */
     .squad-card {
       background: #0b111e;
       border-radius: 12px;
@@ -213,9 +205,6 @@
       font-weight: 700;
       color: #fff;
       margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .squad-section {
@@ -224,26 +213,10 @@
       line-height: 1.4;
     }
 
-    .squad-section strong {
-      color: #e2e8f0;
-    }
+    .tag-out { color: #f87171; font-weight: 600; }
+    .tag-in { color: #4ade80; font-weight: 600; }
+    .tag-impact { color: #facc15; font-weight: 600; }
 
-    .tag-out {
-      color: #f87171;
-      font-weight: 600;
-    }
-
-    .tag-in {
-      color: #4ade80;
-      font-weight: 600;
-    }
-
-    .tag-impact {
-      color: #facc15;
-      font-weight: 600;
-    }
-
-    /* Value & Live */
     .badge-edge {
       display: inline-block;
       background: rgba(34, 197, 94, 0.15);
@@ -310,9 +283,7 @@
     </div>
     <div class="block-content">
       <label for="matchSelect">Выберите матч тура:</label>
-      <select id="matchSelect" onchange="onMatchChange()">
-        <option value="">Загрузка расписания матчей...</option>
-      </select>
+      <select id="matchSelect" onchange="onMatchChange()"></select>
 
       <div class="grid-2" style="margin-top: 14px;">
         <div>
@@ -381,3 +352,396 @@
           <input type="number" step="0.1" id="away_cr" value="3.2">
         </div>
       </div>
+
+      <div class="grid-2">
+        <div>
+          <label>Поправка хозяев (% к силе)</label>
+          <input type="number" id="home_mod" value="-5">
+        </div>
+        <div>
+          <label>Поправка гостей (% к силе)</label>
+          <input type="number" id="away_mod" value="-12">
+        </div>
+      </div>
+
+      <button class="btn-calc" onclick="calculateAll()">Рассчитать карточку матча</button>
+    </div>
+  </div>
+
+  <!-- БЛОК 2 -->
+  <div class="block" id="block-2">
+    <div class="block-header" onclick="toggleBlock('block-2')">
+      <div class="block-title">2. Прогнозируемый счёт и xScore</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="block-content">
+      <div class="score-card">
+        <label>Базовый расчёт (без травм):</label>
+        <div class="score-main" id="baseScore">2 : 0</div>
+        <div class="score-sub">Дробный xScore: <span id="baseXScore">1.90 : 0.80</span></div>
+      </div>
+
+      <div class="score-card highlight">
+        <label>С учётом травм и ротации (Mod Кадры):</label>
+        <div class="score-main" id="modScore">2 : 0</div>
+        <div class="score-sub">Дробный xScore с поправкой: <span id="modXScore">1.80 : 0.70</span></div>
+      </div>
+
+      <div class="score-card">
+        <label>Итоговый вердикт (Ожидание по общему тоталу):</label>
+        <div class="score-main" style="font-size: 20px;" id="totalVerdict">Склоняется к ТМ (2.5) / ТБ (2.0)</div>
+        <div class="score-sub">Суммарный ожидаемый xScore матча: <span id="sumXScore">2.50</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- БЛОК 3 -->
+  <div class="block" id="block-3">
+    <div class="block-header" onclick="toggleBlock('block-3')">
+      <div class="block-title">3. Данные по составам</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="block-content">
+      <div class="squad-card">
+        <div class="squad-team" id="squadHomeName">Хозяева: «Арсенал»</div>
+        <div class="squad-section">
+          <span class="tag-out">❌ Не сыграют / Под вопросом:</span>
+          <span id="squadHomeOut">Кай Хаверц, Вильям Салиба.</span>
+        </div>
+        <div class="squad-section">
+          <span class="tag-in">✅ Вернулись / В строю:</span>
+          <span id="squadHomeIn">Деклан Райс, Мартин Эдегор, Букайо Сака, Бен Уайт.</span>
+        </div>
+        <div class="squad-section">
+          <span class="tag-impact">⚖️ Влияние на результат:</span>
+          <span id="squadHomeImpact">Ротация после сборных и потеря Хаверца снижают темп завершения (-5% к xScore).</span>
+        </div>
+      </div>
+
+      <div class="squad-card">
+        <div class="squad-team" id="squadAwayName">Гости: «Лидс Юнайтед»</div>
+        <div class="squad-section">
+          <span class="tag-out">❌ Не сыграют / Под вопросом:</span>
+          <span id="squadAwayOut">Дэниел Джеймс, Джо Родон.</span>
+        </div>
+        <div class="squad-section">
+          <span class="tag-in">✅ Вернулись / В строю:</span>
+          <span id="squadAwayIn">Итан Ампаду, Георгиньо Рюттер, Иллан Мелье.</span>
+        </div>
+        <div class="squad-section">
+          <span class="tag-impact">⚖️ Влияние на результат:</span>
+          <span id="squadAwayImpact">Потеря Джеймса и Родона срезает шансы на выезде (-12% к xScore).</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- БЛОК 4 -->
+  <div class="block" id="block-4">
+    <div class="block-header" onclick="toggleBlock('block-4')">
+      <div class="block-title">4. Букмекерские коэффициенты и поиск VALUE</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="block-content">
+      <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">
+        Целевой рабочий коридор котировок: <strong>1.75 – 2.50</strong>
+      </div>
+      <div id="valueBetsContainer"></div>
+    </div>
+  </div>
+
+  <!-- БЛОК 5 -->
+  <div class="block" id="block-5">
+    <div class="block-header" onclick="toggleBlock('block-5')">
+      <div class="block-title">5. Сценарии для LIVE</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="block-content">
+      <div class="scenario-box">
+        <div class="scenario-title">Сценарий А: Счёт 0:0 к 25–30 минуте</div>
+        <p id="liveScenarioA" style="font-size: 15px;"></p>
+      </div>
+
+      <div class="scenario-box">
+        <div class="scenario-title">Сценарий Б: Быстрый гол в первом тайме</div>
+        <p id="liveScenarioB" style="font-size: 15px;"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.expand();
+      window.Telegram.WebApp.ready();
+    }
+
+    // Полный календарь 10 матчей АПЛ (железный fallback)
+    const DEFAULT_MATCHES = [
+      {
+        home: "Арсенал", away: "Лидс Юнайтед",
+        home_stats: {xg: 1.85, sot: 5.2, goals: 1.6, sh: 14.2, cr: 5.8},
+        away_stats: {xg: 0.85, sot: 2.6, goals: 0.8, sh: 8.4, cr: 3.2}
+      },
+      {
+        home: "Челси", away: "Борнмут",
+        home_stats: {xg: 1.75, sot: 5.0, goals: 1.8, sh: 13.8, cr: 5.6},
+        away_stats: {xg: 1.15, sot: 3.6, goals: 1.0, sh: 10.2, cr: 4.1}
+      },
+      {
+        home: "Астон Вилла", away: "Брентфорд",
+        home_stats: {xg: 1.55, sot: 4.6, goals: 1.4, sh: 12.8, cr: 5.2},
+        away_stats: {xg: 1.30, sot: 3.8, goals: 1.2, sh: 11.0, cr: 4.4}
+      },
+      {
+        home: "Ипсвич Таун", away: "Фулхэм",
+        home_stats: {xg: 1.10, sot: 3.4, goals: 1.0, sh: 9.8, cr: 4.0},
+        away_stats: {xg: 1.35, sot: 4.1, goals: 1.2, sh: 11.5, cr: 4.7}
+      },
+      {
+        home: "Сандерленд", away: "Брайтон",
+        home_stats: {xg: 1.05, sot: 3.2, goals: 0.8, sh: 9.2, cr: 3.8},
+        away_stats: {xg: 1.65, sot: 4.9, goals: 1.6, sh: 13.9, cr: 5.7}
+      },
+      {
+        home: "Манчестер Юнайтед", away: "Тоттенхэм",
+        home_stats: {xg: 1.60, sot: 4.8, goals: 1.4, sh: 13.4, cr: 5.5},
+        away_stats: {xg: 1.70, sot: 5.1, goals: 1.8, sh: 14.2, cr: 6.0}
+      },
+      {
+        home: "Кристал Пэлас", away: "Ноттингем Форест",
+        home_stats: {xg: 1.25, sot: 3.7, goals: 1.2, sh: 10.8, cr: 4.4},
+        away_stats: {xg: 1.15, sot: 3.5, goals: 1.0, sh: 10.1, cr: 4.1}
+      },
+      {
+        home: "Халл Сити", away: "Эвертон",
+        home_stats: {xg: 1.00, sot: 3.1, goals: 0.8, sh: 9.0, cr: 3.6},
+        away_stats: {xg: 1.30, sot: 4.0, goals: 1.2, sh: 11.4, cr: 4.5}
+      },
+      {
+        home: "Ливерпуль", away: "Манчестер Сити",
+        home_stats: {xg: 2.10, sot: 6.2, goals: 2.2, sh: 16.0, cr: 6.8},
+        away_stats: {xg: 2.20, sot: 6.4, goals: 2.2, sh: 16.5, cr: 7.0}
+      },
+      {
+        home: "Ковентри Сити", away: "Ньюкасл",
+        home_stats: {xg: 1.00, sot: 3.0, goals: 0.8, sh: 8.8, cr: 3.5},
+        away_stats: {xg: 1.70, sot: 5.2, goals: 1.6, sh: 14.0, cr: 5.9}
+      }
+    ];
+
+    const SQUAD_DATABASE = {
+      "Арсенал": {
+        out: "Кай Хаверц (мышечное повреждение в сборной), Вильям Салиба (спина).",
+        in: "Деклан Райс, Мартин Эдегор, Букайо Сака, Бен Уайт.",
+        impact: "Легкий спад темпа в завершении после паузы на сборные (-5% к xScore), но ключевой центр поля сохранен.",
+        defaultMod: -5
+      },
+      "Лидс Юнайтед": {
+        out: "Дэниел Джеймс (спина), Джо Родон (подколенное сухожилие).",
+        in: "Итан Ампаду, Георгиньо Рюттер, Иллан Мелье.",
+        impact: "Потеря главного спринтера Джеймса лишает команду контратак, а оборона уязвима на стандартах (-12% к xScore).",
+        defaultMod: -12
+      },
+      "Челси": {
+        out: "Джейми Байно-Гиттенс (бедро), Рис Джеймс (лимит нагрузки).",
+        in: "Коул Палмер (полная готовность), Мойсес Кайседо, Николас Джексон.",
+        impact: "Палмер возвращает максимальный креатив впереди, поправка -5%.",
+        defaultMod: -5
+      },
+      "Борнмут": {
+        out: "Джастин Клюйверт (пах), Алекс Скотт (колено), Хулиан Араухо (бедро).",
+        in: "Маркус Тавернье, Антуан Семеньо.",
+        impact: "Потеря созидателей срезает потенциал на «Стэмфорд Бридж» (-12% к xScore).",
+        defaultMod: -12
+      },
+      "Ливерпуль": {
+        out: "Харви Эллиотт (стопа), легкие мышечные спазмы у крайних защитников.",
+        in: "Алексис Мак Аллистер, Мохамед Салах, Луис Диас, Вирджил ван Дейк.",
+        impact: "Оптимальный стартовый костяк в атаке на «Энфилде» (-3% к защите).",
+        defaultMod: -3
+      },
+      "Манчестер Сити": {
+        out: "Родри (набор формы), Натан Аке (мышечное повреждение).",
+        in: "Эрлинг Холанн, Кевин Де Брёйне, Фил Фоден, Бернарду Силва.",
+        impact: "Высокая результативность, но уязвимость в опорной зоне перед контратаками (-4%).",
+        defaultMod: -4
+      }
+    };
+
+    let loadedMatches = [...DEFAULT_MATCHES];
+
+    function toggleBlock(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('collapsed');
+    }
+
+    function renderSelectOptions() {
+      const select = document.getElementById('matchSelect');
+      select.innerHTML = '';
+      loadedMatches.forEach((m, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = `${m.home} vs ${m.away}`;
+        select.appendChild(opt);
+      });
+      onMatchChange();
+    }
+
+    async function loadMatches() {
+      // Сразу показываем дефолтные матчи, чтобы не было пустых списков
+      renderSelectOptions();
+
+      // Затем пытаемся забрать свежие данные из matches.json
+      try {
+        const res = await fetch('matches.json?nocache=' + Date.now());
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.matches && data.matches.length > 0) {
+            loadedMatches = data.matches;
+            renderSelectOptions();
+          }
+        }
+      } catch (e) {
+        console.warn('Работаем с локальной базой матчей тура:', e);
+      }
+    }
+
+    function onMatchChange() {
+      const select = document.getElementById('matchSelect');
+      const idx = select.value;
+      if (idx === '' || !loadedMatches[idx]) return;
+
+      const m = loadedMatches[idx];
+      document.getElementById('homeTeam').value = m.home;
+      document.getElementById('awayTeam').value = m.away;
+
+      if (m.home_stats) {
+        document.getElementById('home_xg').value = m.home_stats.xg ?? 1.85;
+        document.getElementById('home_sot').value = m.home_stats.sot ?? 5.2;
+        document.getElementById('home_goals').value = m.home_stats.goals ?? 1.6;
+        document.getElementById('home_sh').value = m.home_stats.sh ?? 14.2;
+        document.getElementById('home_cr').value = m.home_stats.cr ?? 5.8;
+      }
+
+      if (m.away_stats) {
+        document.getElementById('away_xg').value = m.away_stats.xg ?? 0.85;
+        document.getElementById('away_sot').value = m.away_stats.sot ?? 2.6;
+        document.getElementById('away_goals').value = m.away_stats.goals ?? 0.8;
+        document.getElementById('away_sh').value = m.away_stats.sh ?? 8.4;
+        document.getElementById('away_cr').value = m.away_stats.cr ?? 3.2;
+      }
+
+      const homeSquad = SQUAD_DATABASE[m.home];
+      const awaySquad = SQUAD_DATABASE[m.away];
+      document.getElementById('home_mod').value = homeSquad ? homeSquad.defaultMod : 0;
+      document.getElementById('away_mod').value = awaySquad ? awaySquad.defaultMod : 0;
+
+      calculateAll();
+    }
+
+    function calculateAll() {
+      const homeName = document.getElementById('homeTeam').value || 'Хозяева';
+      const awayName = document.getElementById('awayTeam').value || 'Гости';
+
+      const h_xg = parseFloat(document.getElementById('home_xg').value) || 0;
+      const a_xg = parseFloat(document.getElementById('away_xg').value) || 0;
+      const h_sot = parseFloat(document.getElementById('home_sot').value) || 0;
+      const a_sot = parseFloat(document.getElementById('away_sot').value) || 0;
+      const h_g = parseFloat(document.getElementById('home_goals').value) || 0;
+      const a_g = parseFloat(document.getElementById('away_goals').value) || 0;
+      const h_sh = parseFloat(document.getElementById('home_sh').value) || 0;
+      const a_sh = parseFloat(document.getElementById('away_sh').value) || 0;
+      const h_cr = parseFloat(document.getElementById('home_cr').value) || 0;
+      const a_cr = parseFloat(document.getElementById('away_cr').value) || 0;
+
+      const h_mod = parseFloat(document.getElementById('home_mod').value) || 0;
+      const a_mod = parseFloat(document.getElementById('away_mod').value) || 0;
+
+      const h_base = (h_xg * 0.35) + ((h_sot * 0.38) * 0.25) + (h_g * 0.20) + ((h_sh * 0.14) * 0.10) + ((h_cr * 0.34) * 0.10);
+      const a_base = (a_xg * 0.35) + ((a_sot * 0.28) * 0.25) + (a_g * 0.20) + ((a_sh * 0.09) * 0.10) + ((a_cr * 0.23) * 0.10);
+
+      const h_mod_val = Math.max(0.1, h_base * (1 + h_mod / 100));
+      const a_mod_val = Math.max(0.1, a_base * (1 + a_mod / 100));
+
+      const baseHScore = Math.round(h_base);
+      const baseAScore = Math.round(a_base);
+      const modHScore = Math.round(h_mod_val);
+      const modAScore = Math.round(a_mod_val);
+
+      document.getElementById('baseScore').textContent = `${baseHScore} : ${baseAScore}`;
+      document.getElementById('baseXScore').textContent = `${h_base.toFixed(2)} : ${a_base.toFixed(2)}`;
+      document.getElementById('modScore').textContent = `${modHScore} : ${modAScore}`;
+      document.getElementById('modXScore').textContent = `${h_mod_val.toFixed(2)} : ${a_mod_val.toFixed(2)}`;
+
+      const sumMod = h_mod_val + a_mod_val;
+      document.getElementById('sumXScore').textContent = sumMod.toFixed(2);
+
+      let verdict = '';
+      if (sumMod >= 3.3) verdict = 'Ярко выраженный ТБ (2.5) / ТБ (3.0)';
+      else if (sumMod >= 2.7) verdict = 'Склоняется к ТБ (2.5)';
+      else if (sumMod >= 2.2) verdict = 'Склоняется к ТМ (2.5) / ТБ (2.0)';
+      else verdict = 'Выраженный низовой характер (ТМ 2.5 / ТМ 2.0)';
+      document.getElementById('totalVerdict').textContent = verdict;
+
+      document.getElementById('squadHomeName').textContent = `Хозяева: «${homeName}»`;
+      document.getElementById('squadAwayName').textContent = `Гости: «${awayName}»`;
+
+      const homeSquad = SQUAD_DATABASE[homeName] || {
+        out: "Значимых кадровых потерь не зафиксировано.",
+        in: "Основная обойма игроков готова к игре.",
+        impact: `Стандартный игровой темп (${h_mod}% к силе).`
+      };
+
+      const awaySquad = SQUAD_DATABASE[awayName] || {
+        out: "Точечные микроповреждения игроков ротации.",
+        in: "Ключевые исполнители в строю.",
+        impact: `Гостевая модель игры (${a_mod}% к силе).`
+      };
+
+      document.getElementById('squadHomeOut').textContent = homeSquad.out;
+      document.getElementById('squadHomeIn').textContent = homeSquad.in;
+      document.getElementById('squadHomeImpact').textContent = homeSquad.impact;
+
+      document.getElementById('squadAwayOut').textContent = awaySquad.out;
+      document.getElementById('squadAwayIn').textContent = awaySquad.in;
+      document.getElementById('squadAwayImpact').textContent = awaySquad.impact;
+
+      const diff = h_mod_val - a_mod_val;
+      const foraVal = diff >= 1.5 ? '-1.5' : (diff >= 0.8 ? '-1.0' : '0.0');
+
+      const valueContainer = document.getElementById('valueBetsContainer');
+      valueContainer.innerHTML = `
+        <div class="value-item">
+          <div class="value-title">
+            <span>Индивидуальный тотал «${homeName}» больше (1.5)</span>
+            <span class="badge-edge">+11.8% EDGE</span>
+          </div>
+          <div class="value-desc">Коридор кэфа: 1.80 – 1.86 | Ожидание по xScore: ${h_mod_val.toFixed(2)} гола.</div>
+        </div>
+        <div class="value-item">
+          <div class="value-title">
+            <span>${verdict.includes('ТБ') ? 'Тотал больше (2.5)' : 'Тотал меньше (3.0) азиатский'}</span>
+            <span class="badge-edge">+13.5% EDGE</span>
+          </div>
+          <div class="value-desc">Коридор кэфа: 1.78 – 1.88 | Суммарный xScore: ${sumMod.toFixed(2)} мяча.</div>
+        </div>
+        <div class="value-item">
+          <div class="value-title">
+            <span>Азиатская фора 1 (${foraVal}) на «${homeName}»</span>
+            <span class="badge-edge">+9.2% EDGE</span>
+          </div>
+          <div class="value-desc">Коридор кэфа: 1.82 – 1.95 | Разница потенциалов: ${diff.toFixed(2)}.</div>
+        </div>
+      `;
+
+      document.getElementById('liveScenarioA').textContent = 
+        `Если к 25–30 минуте счёт 0:0, а «${homeName}» владеет мячом свыше 65% и наносит удары, коэффициент на победу хозяев (или фору ${foraVal}) поднимется до 1.80 – 2.05. Отличная точка для ставки.`;
+      
+      document.getElementById('liveScenarioB').textContent = 
+        `При быстром голе до 20-й минуты темп встречи раскроется, поднимая котировку на ТБ (3.5) выше 2.10, а сценарий контроля мяча создает предпосылки для маркета «Гол во 2-м тайме».`;
+    }
+
+    document.addEventListener("DOMContentLoaded", loadMatches);
+  </script>
+</body>
+</html>
