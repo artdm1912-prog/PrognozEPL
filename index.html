@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>АНАЛИЗ МАТЧА</title>
+  <title>АНАЛИЗ МАТЧЕЙ АПЛ</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     :root {
@@ -38,7 +38,8 @@
 
     header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
+      padding-top: 6px;
     }
 
     h1 {
@@ -47,12 +48,6 @@
       letter-spacing: 0.8px;
       text-transform: uppercase;
       color: #ffffff;
-      margin-bottom: 4px;
-    }
-
-    .subtitle {
-      font-size: 14px;
-      color: var(--text-muted);
     }
 
     /* Блоки с возможностью сворачивания */
@@ -281,8 +276,7 @@
 <body>
 
   <header>
-    <h1>АНАЛИЗ МАТЧА</h1>
-    <div class="subtitle">5-факторная модель Пуассона | Только матчи АПЛ 26/27</div>
+    <h1>АНАЛИЗ МАТЧЕЙ АПЛ</h1>
   </header>
 
   <!-- БЛОК 1 -->
@@ -472,4 +466,17 @@
         <p id="liveScenarioA" style="font-size: 15px;"></p>
       </div>
 
-      <div
+      <div class="scenario-box">
+        <div class="scenario-title">Сценарий Б: Быстрый гол в первом тайме</div>
+        <p id="liveScenarioB" style="font-size: 15px;"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.expand();
+      window.Telegram.WebApp.ready();
+    }
+
+    const DEFAULT
