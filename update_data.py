@@ -54,11 +54,20 @@ def build_snapshot(payload, now):
     competition = payload.get('competition') or {}
     if competition.get('code') != 'PL':
         raise ValueError('API response does not describe PL competition.')
-    season = payload.get('season') or {}
-    start_date = str(season.get('startDate') or '')
-    # The API must actually confirm 2026/27, not just echo a requested query.
-    if not start_date.startswith('2026-'):
-        raise ValueError(f'Unexpected season start {start_date!r}; expected 2026/27.')
+    # Competition match lists normally contain a `matches` array; season metadata
+    # is attached to individual match objects rather than to the list envelope.
+    # Validate EVERY match before writing anything to disk.
+    for match in matches:
+        season = match.get('season') or {}
+        start_date = str(season.get('startDate') or '')
+        if not start_date.startswith('2026-'):
+            raise ValueError(
+                f"Unconfirmed / wrong season for match {match.get('id')}: "
+                f"startDate={start_date!r}. Snapshot unchanged."
+            )
+        match_competition = match.get('competition') or {}
+        if match_competition.get('code') not in (None, 'PL'):
+            raise ValueError(f"Wrong competition for match {match.get('id')}. Snapshot unchanged.")
     parsed = [r for m in matches if (r := convert_match(m)) is not None]
     if not parsed:
         raise ValueError('No valid team fixtures returned.')
