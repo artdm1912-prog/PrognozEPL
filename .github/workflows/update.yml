@@ -3,7 +3,8 @@ name: Update Matches Data
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 6 * * 4,6' # Thursday/Saturday 06:00 UTC
+    # Every day at 06:00 UTC / 09:00 Moscow time
+    - cron: '0 6 * * *'
 
 permissions:
   contents: write
@@ -18,17 +19,21 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Install dependencies
         run: python -m pip install 'requests>=2.31,<3'
+
       - name: Update verified Premier League data
         env:
           FOOTBALLDATA_IO_KEY: ${{ secrets.FOOTBALLDATA_IO_KEY }}
           FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
         run: python update_data.py
+
       - name: Commit verified snapshots
         run: |
           git config user.name 'github-actions[bot]'
