@@ -71,183 +71,66 @@ const CONVERSIONS = {
 // ============================================================================
 // 3. БАЗА КОМАНД (СЕЗОН 2026/27)
 // ============================================================================
-const TEAMS_DATABASE = {
-  EPL: [
-    {
-      id: 'arsenal',
-      name: '«Арсенал»',
-      homeMatches: 3,
-      awayMatches: 2,
-      injuryModPercent: -5,
-      injuriesNote: 'Кай Хаверц (мышечное), Вильям Салиба (спина)',
-      stats: {
-        xg:      { created: 1.85, conceded: 0.85 },
-        sot:     { created: 5.20, conceded: 2.80 },
-        goals:   { created: 1.60, conceded: 0.80 },
-        shots:   { created: 14.20, conceded: 8.60 },
-        corners: { created: 5.80, conceded: 3.40 }
-      }
-    },
-    {
-      id: 'leeds',
-      name: '«Лидс Юнайтед»',
-      homeMatches: 3,
-      awayMatches: 2,
-      injuryModPercent: -12,
-      injuriesNote: 'Дэниел Джеймс (спина), Джо Родон (подколенное)',
-      stats: {
-        xg:      { created: 1.15, conceded: 1.05 },
-        sot:     { created: 3.60, conceded: 3.20 },
-        goals:   { created: 1.40, conceded: 0.60 },
-        shots:   { created: 10.40, conceded: 11.20 },
-        corners: { created: 4.20, conceded: 4.60 }
-      }
-    },
-    {
-      id: 'mancity',
-      name: '«Манчестер Сити»',
-      homeMatches: 3,
-      awayMatches: 2,
-      injuryModPercent: 0,
-      injuriesNote: 'Все лидеры в строю',
-      stats: {
-        xg:      { created: 2.20, conceded: 0.75 },
-        sot:     { created: 6.40, conceded: 2.40 },
-        goals:   { created: 2.40, conceded: 0.60 },
-        shots:   { created: 16.80, conceded: 7.20 },
-        corners: { created: 7.10, conceded: 2.90 }
-      }
+// Команды загружаются из опубликованного team_stats.json; демонстрационных данных нет.
+const TEAMS_DATABASE = { EPL: [] };
+const STATS_URL = 'https://raw.githubusercontent.com/artdm1912-prog/PrognozEPL/main/team_stats.json';
+const API_METRICS = { xg: 'xg', sot: 'shots_on_target', goals: 'goals', shots: 'shots', corners: 'corners' };
+let statsMetadata = null;
+let statsLoadError = null;
+
+function safeText(value) {
+  return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function convertTeam(t) {
+  if (!t || !t.per_match || !Number.isInteger(t.played) || t.played < 1) return null;
+  const stats = {};
+  for (const [metric, apiKey] of Object.entries(API_METRICS)) {
+    const p = t.per_match[apiKey];
+    const home = t.home && t.home.per_match && t.home.per_match[apiKey];
+    const away = t.away && t.away.per_match && t.away.per_match[apiKey];
+    if (!p || !Number.isFinite(Number(p.for)) || !Number.isFinite(Number(p.against))) return null;
+    stats[metric] = {
+      created: Number(p.for), conceded: Number(p.against),
+      home: home && Number.isFinite(Number(home.for)) && Number.isFinite(Number(home.against))
+        ? { created: Number(home.for), conceded: Number(home.against) } : null,
+      away: away && Number.isFinite(Number(away.for)) && Number.isFinite(Number(away.against))
+        ? { created: Number(away.for), conceded: Number(away.against) } : null
+    };
+  }
+  return {
+    id: String(t.id), name: safeText(t.name),
+    played: t.played,
+    homeMatches: Number(t.home_played) || 0,
+    awayMatches: Number(t.away_played) || 0,
+    injuryModPercent: 0,
+    injuriesNote: 'Кадровые данные не подключены — поправка 0% (нейтрально)',
+    stats
+  };
+}
+
+async function loadLeagueData() {
+  const phaseBadge = document.getElementById('phase-badge');
+  phaseBadge.textContent = 'Загрузка подтверждённой статистики АПЛ…';
+  try {
+    const response = await fetch(STATS_URL, { cache: 'no-store' });
+    if (!response.ok) throw new Error('HTTP ' + response.status);
+    const json = await response.json();
+    if (json.season !== '2026/27' || json.league !== 'АПЛ' || !json.teams || typeof json.teams !== 'object') {
+      throw new Error('Неверный формат, лига или сезон данных');
     }
-  ],
-  SERIE_A: [
-    {
-      id: 'inter',
-      name: '«Интер»',
-      homeMatches: 3,
-      awayMatches: 2,
-      injuryModPercent: -3,
-      injuriesNote: 'Небольшая ротация в центре поля',
-      stats: {
-        xg:      { created: 1.95, conceded: 0.70 },
-        sot:     { created: 5.50, conceded: 2.60 },
-        goals:   { created: 2.10, conceded: 0.70 },
-        shots:   { created: 15.00, conceded: 8.10 },
-        corners: { created: 6.20, conceded: 3.10 }
-      }
-    },
-    {
-      id: 'juventus',
-      name: '«Ювентус»',
-      homeMatches: 2,
-      awayMatches: 3,
-      injuryModPercent: -6,
-      injuriesNote: 'Бремер (восстановление)',
-      stats: {
-        xg:      { created: 1.45, conceded: 0.65 },
-        sot:     { created: 4.10, conceded: 2.50 },
-        goals:   { created: 1.50, conceded: 0.50 },
-        shots:   { created: 12.10, conceded: 8.40 },
-        corners: { created: 4.90, conceded: 3.70 }
-      }
-    }
-  ],
-  LA_LIGA: [
-    {
-      id: 'real_madrid',
-      name: '«Реал Мадрид»',
-      homeMatches: 3,
-      awayMatches: 2,
-      injuryModPercent: 0,
-      injuriesNote: 'Штатный состав',
-      stats: {
-        xg:      { created: 2.10, conceded: 0.85 },
-        sot:     { created: 6.10, conceded: 2.90 },
-        goals:   { created: 2.20, conceded: 0.80 },
-        shots:   { created: 16.20, conceded: 8.50 },
-        corners: { created: 6.50, conceded: 3.30 }
-      }
-    },
-    {
-      id: 'barcelona',
-      name: '«Барселона»',
-      homeMatches: 2,
-      awayMatches: 3,
-      injuryModPercent: -5,
-      injuriesNote: 'Гави (нагрузочный менеджмент)',
-      stats: {
-        xg:      { created: 2.15, conceded: 0.95 },
-        sot:     { created: 6.30, conceded: 3.10 },
-        goals:   { created: 2.30, conceded: 0.90 },
-        shots:   { created: 15.90, conceded: 9.10 },
-        corners: { created: 6.10, conceded: 3.50 }
-      }
-    }
-  ],
-  BUNDESLIGA: [
-    {
-      id: 'bayern',
-      name: '«Бавария»',
-      homeMatches: 3,
-      awayMatches: 2,
-      injuryModPercent: 0,
-      injuriesNote: 'Оптимальный состав',
-      stats: {
-        xg:      { created: 2.60, conceded: 0.90 },
-        sot:     { created: 7.20, conceded: 3.10 },
-        goals:   { created: 2.80, conceded: 0.90 },
-        shots:   { created: 18.20, conceded: 8.80 },
-        corners: { created: 7.40, conceded: 3.20 }
-      }
-    },
-    {
-      id: 'leverkusen',
-      name: '«Байер Леверкузен»',
-      homeMatches: 2,
-      awayMatches: 3,
-      injuryModPercent: -4,
-      injuriesNote: 'Паласиос (усталость сборной)',
-      stats: {
-        xg:      { created: 2.05, conceded: 1.10 },
-        sot:     { created: 5.80, conceded: 3.60 },
-        goals:   { created: 2.20, conceded: 1.20 },
-        shots:   { created: 14.90, conceded: 9.80 },
-        corners: { created: 6.20, conceded: 3.90 }
-      }
-    }
-  ],
-  RPL: [
-    {
-      id: 'zenit',
-      name: '«Зенит»',
-      homeMatches: 3,
-      awayMatches: 2,
-      injuryModPercent: 0,
-      injuriesNote: 'Без потерь',
-      stats: {
-        xg:      { created: 1.85, conceded: 0.65 },
-        sot:     { created: 5.30, conceded: 2.50 },
-        goals:   { created: 1.90, conceded: 0.60 },
-        shots:   { created: 14.10, conceded: 7.90 },
-        corners: { created: 5.90, conceded: 3.10 }
-      }
-    },
-    {
-      id: 'krasnodar',
-      name: '«Краснодар»',
-      homeMatches: 2,
-      awayMatches: 3,
-      injuryModPercent: -5,
-      injuriesNote: 'Сперцян (дисквалификация)',
-      stats: {
-        xg:      { created: 1.60, conceded: 0.75 },
-        sot:     { created: 4.70, conceded: 2.80 },
-        goals:   { created: 1.70, conceded: 0.70 },
-        shots:   { created: 12.80, conceded: 8.90 },
-        corners: { created: 5.20, conceded: 3.60 }
-      }
-    }
-  ]
-};
+    const teams = Object.values(json.teams).map(convertTeam).filter(Boolean)
+      .sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+    if (teams.length < 2) throw new Error('Недостаточно команд с полной статистикой');
+    TEAMS_DATABASE.EPL = teams;
+    statsMetadata = json;
+    statsLoadError = null;
+  } catch (error) {
+    TEAMS_DATABASE.EPL = [];
+    statsLoadError = error.message;
+  }
+  populateTeamSelectors();
+}
 
 // ============================================================================
 // 4. ДВУХФАКТОРНЫЙ РАСЧЁТ
@@ -256,7 +139,8 @@ function calculateMatchForecast(homeTeam, awayTeam, leagueKey) {
   const league = LEAGUE_BASELINES[leagueKey];
 
   // Проверка фазы выборки (5+ домашних у хозяев и 5+ выездных у гостей)
-  const isPhase2 = (homeTeam.homeMatches >= 5) && (awayTeam.awayMatches >= 5);
+  const isPhase2 = (homeTeam.homeMatches >= 5) && (awayTeam.awayMatches >= 5) &&
+    ["xg", "sot", "goals", "shots", "corners"].every(m => homeTeam.stats[m].home && awayTeam.stats[m].away);
 
   // Факторы поля: в Фазе 1 даем 1.10 / 0.90, в Фазе 2 строго 1.00
   const homeAdvantage = isPhase2 ? 1.00 : 1.10;
@@ -272,8 +156,12 @@ function calculateMatchForecast(homeTeam, awayTeam, leagueKey) {
 
   metrics.forEach(m => {
     // Взаимное столкновение: (Создано A * Допущено B / Базис лиги) * Фактор поля
-    const hVol = ((homeTeam.stats[m].created * awayTeam.stats[m].conceded) / baseline.home[m]) * homeAdvantage;
-    const aVol = ((awayTeam.stats[m].created * homeTeam.stats[m].conceded) / baseline.away[m]) * awayDiscount;
+    const homeCreated = isPhase2 ? homeTeam.stats[m].home.created : homeTeam.stats[m].created;
+    const awayConceded = isPhase2 ? awayTeam.stats[m].away.conceded : awayTeam.stats[m].conceded;
+    const awayCreated = isPhase2 ? awayTeam.stats[m].away.created : awayTeam.stats[m].created;
+    const homeConceded = isPhase2 ? homeTeam.stats[m].home.conceded : homeTeam.stats[m].conceded;
+    const hVol = ((homeCreated * awayConceded) / baseline.home[m]) * homeAdvantage;
+    const aVol = ((awayCreated * homeConceded) / baseline.away[m]) * awayDiscount;
 
     // Перевод объема в голы
     const hGoalExp = hVol * CONVERSIONS[m].home;
@@ -323,10 +211,16 @@ function updateUI() {
   const homeId = document.getElementById('home-team-select').value;
   const awayId = document.getElementById('away-team-select').value;
 
-  const leagueTeams = TEAMS_DATABASE[leagueKey];
+  const leagueTeams = TEAMS_DATABASE[leagueKey] || [];
+  if (leagueTeams.length < 2) return;
   const homeTeam = leagueTeams.find(t => t.id === homeId) || leagueTeams[0];
   const awayTeam = leagueTeams.find(t => t.id === awayId) || leagueTeams[1];
 
+  if (homeTeam.id === awayTeam.id) {
+    document.getElementById('match-header-card').textContent = 'Выбери две разные команды.';
+    document.getElementById('forecast-table-container').innerHTML = '';
+    return;
+  }
   const forecast = calculateMatchForecast(homeTeam, awayTeam, leagueKey);
   const leagueBase = LEAGUE_BASELINES[leagueKey].phase1;
 
@@ -339,6 +233,9 @@ function updateUI() {
     phaseBadge.className = 'px-3 py-1 bg-blue-950/80 border border-blue-500/40 text-blue-300 rounded-full text-xs font-semibold';
     phaseBadge.innerText = '● Фаза 1 (Старт сезона: Общая статистика + фактор поля 1.1/0.9)';
   }
+
+  const smallSample = Math.min(homeTeam.played, awayTeam.played) < 8;
+  const verificationLine = `<div class="text-xs text-amber-300 mt-3">${smallSample ? '⚠ Малая выборка: прогноз предварительный. Не рекомендация для ставок.' : 'Расчётная оценка, не гарантия результата.'} Хозяева: ${homeTeam.played} матчей, гости: ${awayTeam.played} матчей. Данные: ${safeText(statsMetadata.updated_at || 'дата неизвестна')}. Источник: footballdata.io через GitHub.</div>`;
 
   // 2. Карточка матча (Вердикт)
   const headerCard = document.getElementById('match-header-card');
@@ -362,6 +259,7 @@ function updateUI() {
     <div class="mt-4 pt-4 border-t border-slate-700/60 flex flex-wrap gap-4 text-xs">
       <div><span class="text-slate-400">Вердикт по тоталу:</span> <span class="text-emerald-400 font-semibold">${verdictText}</span> (сумма ${forecast.totalXScore})</div>
       <div><span class="text-slate-400">Базис лиги:</span> Голы ${leagueBase.goals} | xG ${leagueBase.xg} | Створ ${leagueBase.sot} | Удары ${leagueBase.shots} | Углы ${leagueBase.corners}</div>
+    ${verificationLine}
     </div>
   `;
 
@@ -448,11 +346,21 @@ function updateUI() {
 // ============================================================================
 function populateTeamSelectors() {
   const leagueKey = document.getElementById('league-select').value;
-  const teams = TEAMS_DATABASE[leagueKey];
+  const teams = TEAMS_DATABASE[leagueKey] || [];
 
   const homeSelect = document.getElementById('home-team-select');
   const awaySelect = document.getElementById('away-team-select');
 
+  if (teams.length < 2) {
+    homeSelect.innerHTML = '<option>Нет данных</option>';
+    awaySelect.innerHTML = '<option>Нет данных</option>';
+    document.getElementById('phase-badge').textContent = 'Нет подтверждённых данных';
+    document.getElementById('match-header-card').textContent = 'Не удалось загрузить статистику АПЛ: ' + (statsLoadError || 'неизвестная ошибка') + '. Проверьте подключение к GitHub и обновите страницу.';
+    document.getElementById('forecast-table-container').innerHTML = '';
+    document.getElementById('home-injury-card').innerHTML = '';
+    document.getElementById('away-injury-card').innerHTML = '';
+    return;
+  }
   homeSelect.innerHTML = teams.map((t, idx) => `<option value="${t.id}" ${idx === 0 ? 'selected' : ''}>${t.name}</option>`).join('');
   awaySelect.innerHTML = teams.map((t, idx) => `<option value="${t.id}" ${idx === 1 ? 'selected' : ''}>${t.name}</option>`).join('');
 
@@ -463,5 +371,7 @@ document.getElementById('league-select').addEventListener('change', populateTeam
 document.getElementById('home-team-select').addEventListener('change', updateUI);
 document.getElementById('away-team-select').addEventListener('change', updateUI);
 
-// Запуск при старте
-populateTeamSelectors();
+// Тестируем только АПЛ; для остальных лиг не показываем придуманные показатели.
+const leagueSelect = document.getElementById('league-select');
+leagueSelect.innerHTML = '<option value="EPL">Английская Премьер-лига (АПЛ)</option>';
+loadLeagueData();
