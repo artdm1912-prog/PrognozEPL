@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-10T11:26:41.634584+00:00",
+  "updated_at": "2026-10-11T11:40:13.508670+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -7,20 +7,6 @@
   "statistics_verified": false,
   "note": "Real schedule/scores only. xG, shots, corners and injury reports are NOT retrieved.",
   "matches": [
-    {
-      "id": 560593,
-      "date": "2026-10-10T11:30:00Z",
-      "home": "Arsenal",
-      "away": "Leeds United",
-      "home_id": 57,
-      "away_id": 341,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "TIMED",
-      "matchday": 6,
-      "source": "football-data.org",
-      "statistics_verified": false
-    },
     {
       "id": 560592,
       "date": "2026-10-10T14:00:00Z",
@@ -30,10 +16,14 @@
       "away_id": 397,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 6,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        0,
+        2
+      ]
     },
     {
       "id": 560595,
@@ -44,10 +34,14 @@
       "away_id": 1044,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 6,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        5,
+        1
+      ]
     },
     {
       "id": 560599,
@@ -58,10 +52,14 @@
       "away_id": 63,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 6,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        2,
+        1
+      ]
     },
     {
       "id": 560601,
@@ -72,10 +70,14 @@
       "away_id": 402,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 6,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        2,
+        2
+      ]
     },
     {
       "id": 560600,
@@ -86,10 +88,14 @@
       "away_id": 73,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 6,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        1,
+        1
+      ]
     },
     {
       "id": 560594,
@@ -424,6 +430,20 @@
       "season": "2026/27",
       "status": "TIMED",
       "matchday": 8,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560626,
+      "date": "2026-10-31T12:30:00Z",
+      "home": "Chelsea",
+      "away": "Man United",
+      "home_id": 61,
+      "away_id": 66,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 9,
       "source": "football-data.org",
       "statistics_verified": false
     }
