@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-11T11:40:13.508670+00:00",
+  "updated_at": "2026-10-12T13:37:31.328712+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -7,124 +7,6 @@
   "statistics_verified": false,
   "note": "Real schedule/scores only. xG, shots, corners and injury reports are NOT retrieved.",
   "matches": [
-    {
-      "id": 560592,
-      "date": "2026-10-10T14:00:00Z",
-      "home": "Sunderland",
-      "away": "Brighton Hove",
-      "home_id": 71,
-      "away_id": 397,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 6,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        0,
-        2
-      ]
-    },
-    {
-      "id": 560595,
-      "date": "2026-10-10T14:00:00Z",
-      "home": "Chelsea",
-      "away": "Bournemouth",
-      "home_id": 61,
-      "away_id": 1044,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 6,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        5,
-        1
-      ]
-    },
-    {
-      "id": 560599,
-      "date": "2026-10-10T14:00:00Z",
-      "home": "Ipswich Town",
-      "away": "Fulham",
-      "home_id": 349,
-      "away_id": 63,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 6,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        2,
-        1
-      ]
-    },
-    {
-      "id": 560601,
-      "date": "2026-10-10T14:00:00Z",
-      "home": "Aston Villa",
-      "away": "Brentford",
-      "home_id": 58,
-      "away_id": 402,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 6,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        2,
-        2
-      ]
-    },
-    {
-      "id": 560600,
-      "date": "2026-10-10T16:30:00Z",
-      "home": "Man United",
-      "away": "Tottenham",
-      "home_id": 66,
-      "away_id": 73,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 6,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        1,
-        1
-      ]
-    },
-    {
-      "id": 560594,
-      "date": "2026-10-11T13:00:00Z",
-      "home": "Hull City",
-      "away": "Everton",
-      "home_id": 322,
-      "away_id": 62,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "TIMED",
-      "matchday": 6,
-      "source": "football-data.org",
-      "statistics_verified": false
-    },
-    {
-      "id": 560596,
-      "date": "2026-10-11T13:00:00Z",
-      "home": "Crystal Palace",
-      "away": "Nottingham",
-      "home_id": 354,
-      "away_id": 351,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "TIMED",
-      "matchday": 6,
-      "source": "football-data.org",
-      "statistics_verified": false
-    },
     {
       "id": 560598,
       "date": "2026-10-11T15:30:00Z",
@@ -134,10 +16,14 @@
       "away_id": 65,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 6,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        0,
+        3
+      ]
     },
     {
       "id": 560597,
@@ -440,6 +326,104 @@
       "away": "Man United",
       "home_id": 61,
       "away_id": 66,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 9,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560623,
+      "date": "2026-10-31T15:00:00Z",
+      "home": "Man City",
+      "away": "Brighton Hove",
+      "home_id": 65,
+      "away_id": 397,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 9,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560624,
+      "date": "2026-10-31T15:00:00Z",
+      "home": "Bournemouth",
+      "away": "Leeds United",
+      "home_id": 1044,
+      "away_id": 341,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 9,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560625,
+      "date": "2026-10-31T15:00:00Z",
+      "home": "Coventry City",
+      "away": "Sunderland",
+      "home_id": 1076,
+      "away_id": 71,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 9,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560629,
+      "date": "2026-10-31T15:00:00Z",
+      "home": "Hull City",
+      "away": "Ipswich Town",
+      "home_id": 322,
+      "away_id": 349,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 9,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560630,
+      "date": "2026-10-31T15:00:00Z",
+      "home": "Brentford",
+      "away": "Nottingham",
+      "home_id": 402,
+      "away_id": 351,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 9,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560627,
+      "date": "2026-10-31T17:30:00Z",
+      "home": "Tottenham",
+      "away": "Crystal Palace",
+      "home_id": 73,
+      "away_id": 354,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 9,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560628,
+      "date": "2026-10-31T20:00:00Z",
+      "home": "Aston Villa",
+      "away": "Fulham",
+      "home_id": 58,
+      "away_id": 63,
       "league": "АПЛ",
       "season": "2026/27",
       "status": "TIMED",
