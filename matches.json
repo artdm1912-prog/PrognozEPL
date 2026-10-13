@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12T13:37:31.328712+00:00",
+  "updated_at": "2026-10-13T13:00:36.072221+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -7,24 +7,6 @@
   "statistics_verified": false,
   "note": "Real schedule/scores only. xG, shots, corners and injury reports are NOT retrieved.",
   "matches": [
-    {
-      "id": 560598,
-      "date": "2026-10-11T15:30:00Z",
-      "home": "Liverpool",
-      "away": "Man City",
-      "home_id": 64,
-      "away_id": 65,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 6,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        0,
-        3
-      ]
-    },
     {
       "id": 560597,
       "date": "2026-10-12T19:00:00Z",
@@ -34,10 +16,14 @@
       "away_id": 67,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 6,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        4,
+        1
+      ]
     },
     {
       "id": 560603,
@@ -424,6 +410,20 @@
       "away": "Fulham",
       "home_id": 58,
       "away_id": 63,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 9,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560631,
+      "date": "2026-11-01T16:30:00Z",
+      "home": "Liverpool",
+      "away": "Arsenal",
+      "home_id": 64,
+      "away_id": 57,
       "league": "АПЛ",
       "season": "2026/27",
       "status": "TIMED",

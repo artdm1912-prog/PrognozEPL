@@ -1,7 +1,7 @@
 {
   "season_id": 103535,
   "league_id": 15,
-  "updated_at": "2026-10-12T13:37:30.130703+00:00",
+  "updated_at": "2026-10-13T13:00:34.511916+00:00",
   "matches": {
     "740533372": {
       "id": 740533372,
@@ -1885,6 +1885,38 @@
         ],
         "corners": [
           5,
+          6
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "936013205": {
+      "id": 936013205,
+      "date": "2026-10-12 19:00:00",
+      "home_id": 209,
+      "away_id": 141,
+      "home": "Coventry City",
+      "away": "Newcastle United",
+      "goals": [
+        4,
+        1
+      ],
+      "stats": {
+        "xg": [
+          1.29,
+          2.03
+        ],
+        "shots": [
+          9,
+          19
+        ],
+        "shots_on_target": [
+          6,
+          6
+        ],
+        "corners": [
+          2,
           6
         ]
       },

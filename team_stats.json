@@ -2,8 +2,8 @@
   "season": "2026/27",
   "league": "АПЛ",
   "source": "footballdata.io",
-  "source_matches": 59,
-  "updated_at": "2026-10-12T13:37:30.133860+00:00",
+  "source_matches": 60,
+  "updated_at": "2026-10-13T13:00:34.515317+00:00",
   "teams": {
     "57": {
       "id": 57,
@@ -153,75 +153,75 @@
     "209": {
       "id": 209,
       "name": "Coventry City",
-      "played": 5,
-      "home_played": 2,
+      "played": 6,
+      "home_played": 3,
       "away_played": 3,
       "totals": {
         "goals": {
-          "for": 1,
-          "against": 10
+          "for": 5,
+          "against": 11
         },
         "xg": {
-          "for": 5.71,
-          "against": 9.01
+          "for": 7.0,
+          "against": 11.04
         },
         "shots": {
-          "for": 51,
-          "against": 87
+          "for": 60,
+          "against": 106
         },
         "shots_on_target": {
-          "for": 16,
-          "against": 22
+          "for": 22,
+          "against": 28
         },
         "corners": {
-          "for": 19,
-          "against": 23
+          "for": 21,
+          "against": 29
         }
       },
       "home": {
-        "played": 2,
+        "played": 3,
         "totals": {
           "goals": {
-            "for": 0,
-            "against": 6
+            "for": 4,
+            "against": 7
           },
           "xg": {
-            "for": 2.84,
-            "against": 2.89
+            "for": 4.13,
+            "against": 4.92
           },
           "shots": {
-            "for": 25,
-            "against": 28
+            "for": 34,
+            "against": 47
           },
           "shots_on_target": {
-            "for": 9,
-            "against": 9
+            "for": 15,
+            "against": 15
           },
           "corners": {
-            "for": 10,
-            "against": 5
+            "for": 12,
+            "against": 11
           }
         },
         "per_match": {
           "goals": {
-            "for": 0.0,
-            "against": 3.0
+            "for": 1.3333,
+            "against": 2.3333
           },
           "xg": {
-            "for": 1.42,
-            "against": 1.445
+            "for": 1.3767,
+            "against": 1.64
           },
           "shots": {
-            "for": 12.5,
-            "against": 14.0
+            "for": 11.3333,
+            "against": 15.6667
           },
           "shots_on_target": {
-            "for": 4.5,
-            "against": 4.5
+            "for": 5.0,
+            "against": 5.0
           },
           "corners": {
-            "for": 5.0,
-            "against": 2.5
+            "for": 4.0,
+            "against": 3.6667
           }
         }
       },
@@ -274,24 +274,24 @@
       },
       "per_match": {
         "goals": {
-          "for": 0.2,
-          "against": 2.0
+          "for": 0.8333,
+          "against": 1.8333
         },
         "xg": {
-          "for": 1.142,
-          "against": 1.802
+          "for": 1.1667,
+          "against": 1.84
         },
         "shots": {
-          "for": 10.2,
-          "against": 17.4
+          "for": 10.0,
+          "against": 17.6667
         },
         "shots_on_target": {
-          "for": 3.2,
-          "against": 4.4
+          "for": 3.6667,
+          "against": 4.6667
         },
         "corners": {
-          "for": 3.8,
-          "against": 4.6
+          "for": 3.5,
+          "against": 4.8333
         }
       }
     },
@@ -2328,29 +2328,29 @@
     "141": {
       "id": 141,
       "name": "Newcastle United",
-      "played": 5,
+      "played": 6,
       "home_played": 3,
-      "away_played": 2,
+      "away_played": 3,
       "totals": {
         "goals": {
-          "for": 9,
-          "against": 9
+          "for": 10,
+          "against": 13
         },
         "xg": {
-          "for": 5.79,
-          "against": 9.930000000000001
+          "for": 7.82,
+          "against": 11.220000000000002
         },
         "shots": {
-          "for": 50,
-          "against": 97
+          "for": 69,
+          "against": 106
         },
         "shots_on_target": {
-          "for": 18,
-          "against": 28
+          "for": 24,
+          "against": 34
         },
         "corners": {
-          "for": 22,
-          "against": 30
+          "for": 28,
+          "against": 32
         }
       },
       "home": {
@@ -2401,72 +2401,72 @@
         }
       },
       "away": {
-        "played": 2,
+        "played": 3,
         "totals": {
           "goals": {
-            "for": 3,
-            "against": 4
+            "for": 4,
+            "against": 8
           },
           "xg": {
-            "for": 2.25,
-            "against": 3.6
+            "for": 4.279999999999999,
+            "against": 4.890000000000001
           },
           "shots": {
-            "for": 18,
-            "against": 32
+            "for": 37,
+            "against": 41
           },
           "shots_on_target": {
-            "for": 7,
-            "against": 12
+            "for": 13,
+            "against": 18
           },
           "corners": {
-            "for": 12,
-            "against": 14
+            "for": 18,
+            "against": 16
           }
         },
         "per_match": {
           "goals": {
-            "for": 1.5,
-            "against": 2.0
+            "for": 1.3333,
+            "against": 2.6667
           },
           "xg": {
-            "for": 1.125,
-            "against": 1.8
+            "for": 1.4267,
+            "against": 1.63
           },
           "shots": {
-            "for": 9.0,
-            "against": 16.0
+            "for": 12.3333,
+            "against": 13.6667
           },
           "shots_on_target": {
-            "for": 3.5,
+            "for": 4.3333,
             "against": 6.0
           },
           "corners": {
             "for": 6.0,
-            "against": 7.0
+            "against": 5.3333
           }
         }
       },
       "per_match": {
         "goals": {
-          "for": 1.8,
-          "against": 1.8
+          "for": 1.6667,
+          "against": 2.1667
         },
         "xg": {
-          "for": 1.158,
-          "against": 1.986
+          "for": 1.3033,
+          "against": 1.87
         },
         "shots": {
-          "for": 10.0,
-          "against": 19.4
+          "for": 11.5,
+          "against": 17.6667
         },
         "shots_on_target": {
-          "for": 3.6,
-          "against": 5.6
+          "for": 4.0,
+          "against": 5.6667
         },
         "corners": {
-          "for": 4.4,
-          "against": 6.0
+          "for": 4.6667,
+          "against": 5.3333
         }
       }
     },
