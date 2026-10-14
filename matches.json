@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T13:00:36.072221+00:00",
+  "updated_at": "2026-10-14T10:41:46.293360+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -7,24 +7,6 @@
   "statistics_verified": false,
   "note": "Real schedule/scores only. xG, shots, corners and injury reports are NOT retrieved.",
   "matches": [
-    {
-      "id": 560597,
-      "date": "2026-10-12T19:00:00Z",
-      "home": "Coventry City",
-      "away": "Newcastle",
-      "home_id": 1076,
-      "away_id": 67,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 6,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        4,
-        1
-      ]
-    },
     {
       "id": 560603,
       "date": "2026-10-17T11:30:00Z",
@@ -424,6 +406,20 @@
       "away": "Arsenal",
       "home_id": 64,
       "away_id": 57,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 9,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560622,
+      "date": "2026-11-02T20:00:00Z",
+      "home": "Newcastle",
+      "away": "Everton",
+      "home_id": 67,
+      "away_id": 62,
       "league": "АПЛ",
       "season": "2026/27",
       "status": "TIMED",
