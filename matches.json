@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19T11:21:19.703626+00:00",
+  "updated_at": "2026-10-20T10:29:11.455441+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -7,78 +7,6 @@
   "statistics_verified": false,
   "note": "Real schedule/scores only. xG, shots, corners and injury reports are NOT retrieved.",
   "matches": [
-    {
-      "id": 560604,
-      "date": "2026-10-18T13:00:00Z",
-      "home": "Bournemouth",
-      "away": "Sunderland",
-      "home_id": 1044,
-      "away_id": 71,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 7,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        2,
-        0
-      ]
-    },
-    {
-      "id": 560605,
-      "date": "2026-10-18T13:00:00Z",
-      "home": "Leeds United",
-      "away": "Man United",
-      "home_id": 341,
-      "away_id": 66,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 7,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        1,
-        1
-      ]
-    },
-    {
-      "id": 560609,
-      "date": "2026-10-18T13:00:00Z",
-      "home": "Brighton Hove",
-      "away": "Crystal Palace",
-      "home_id": 397,
-      "away_id": 354,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 7,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        5,
-        0
-      ]
-    },
-    {
-      "id": 560608,
-      "date": "2026-10-18T15:30:00Z",
-      "home": "Nottingham",
-      "away": "Arsenal",
-      "home_id": 351,
-      "away_id": 57,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 7,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        0,
-        1
-      ]
-    },
     {
       "id": 560606,
       "date": "2026-10-19T19:00:00Z",
@@ -88,10 +16,14 @@
       "away_id": 1076,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 7,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        3,
+        1
+      ]
     },
     {
       "id": 560620,
@@ -436,6 +368,62 @@
       "away": "Man City",
       "home_id": 351,
       "away_id": 65,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 10,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560635,
+      "date": "2026-11-08T14:00:00Z",
+      "home": "Crystal Palace",
+      "away": "Liverpool",
+      "home_id": 354,
+      "away_id": 64,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 10,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560636,
+      "date": "2026-11-08T14:00:00Z",
+      "home": "Sunderland",
+      "away": "Chelsea",
+      "home_id": 71,
+      "away_id": 61,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 10,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560637,
+      "date": "2026-11-08T14:00:00Z",
+      "home": "Ipswich Town",
+      "away": "Bournemouth",
+      "home_id": 349,
+      "away_id": 1044,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 10,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560638,
+      "date": "2026-11-08T14:00:00Z",
+      "home": "Brighton Hove",
+      "away": "Brentford",
+      "home_id": 397,
+      "away_id": 402,
       "league": "АПЛ",
       "season": "2026/27",
       "status": "TIMED",

@@ -1,7 +1,7 @@
 {
   "season_id": 103535,
   "league_id": 15,
-  "updated_at": "2026-10-19T11:21:18.824072+00:00",
+  "updated_at": "2026-10-20T10:29:10.640495+00:00",
   "matches": {
     "740533372": {
       "id": 740533372,
@@ -2206,6 +2206,38 @@
         "corners": [
           8,
           6
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "967011736": {
+      "id": 967011736,
+      "date": "2026-10-19 19:00:00",
+      "home_id": 86,
+      "away_id": 209,
+      "home": "Tottenham Hotspur",
+      "away": "Coventry City",
+      "goals": [
+        3,
+        1
+      ],
+      "stats": {
+        "xg": [
+          1.76,
+          1.08
+        ],
+        "shots": [
+          16,
+          12
+        ],
+        "shots_on_target": [
+          5,
+          1
+        ],
+        "corners": [
+          4,
+          4
         ]
       },
       "source": "footballdata.io",
