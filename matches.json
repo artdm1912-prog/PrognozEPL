@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-20T10:29:11.455441+00:00",
+  "updated_at": "2026-10-21T10:40:57.122707+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -7,24 +7,6 @@
   "statistics_verified": false,
   "note": "Real schedule/scores only. xG, shots, corners and injury reports are NOT retrieved.",
   "matches": [
-    {
-      "id": 560606,
-      "date": "2026-10-19T19:00:00Z",
-      "home": "Tottenham",
-      "away": "Coventry City",
-      "home_id": 73,
-      "away_id": 1076,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 7,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        3,
-        1
-      ]
-    },
     {
       "id": 560620,
       "date": "2026-10-23T19:00:00Z",
@@ -424,6 +406,20 @@
       "away": "Brentford",
       "home_id": 397,
       "away_id": 402,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 10,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560639,
+      "date": "2026-11-08T16:30:00Z",
+      "home": "Man United",
+      "away": "Aston Villa",
+      "home_id": 66,
+      "away_id": 58,
       "league": "АПЛ",
       "season": "2026/27",
       "status": "TIMED",
