@@ -1,7 +1,7 @@
 {
   "season_id": 103535,
   "league_id": 15,
-  "updated_at": "2026-10-23T10:35:16.181740+00:00",
+  "updated_at": "2026-10-24T09:52:49.244781+00:00",
   "matches": {
     "740533372": {
       "id": 740533372,
@@ -2238,6 +2238,38 @@
         "corners": [
           4,
           4
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "998077671": {
+      "id": 998077671,
+      "date": "2026-10-23 19:00:00",
+      "home_id": 191,
+      "away_id": 182,
+      "home": "Ipswich Town",
+      "away": "Nottingham Forest",
+      "goals": [
+        1,
+        1
+      ],
+      "stats": {
+        "xg": [
+          0.98,
+          1.74
+        ],
+        "shots": [
+          7,
+          17
+        ],
+        "shots_on_target": [
+          3,
+          5
+        ],
+        "corners": [
+          0,
+          5
         ]
       },
       "source": "footballdata.io",
