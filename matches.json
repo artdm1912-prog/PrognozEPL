@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-24T09:52:50.778099+00:00",
+  "updated_at": "2026-10-25T10:14:05.142173+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -7,24 +7,6 @@
   "statistics_verified": false,
   "note": "Real schedule/scores only. xG, shots, corners and injury reports are NOT retrieved.",
   "matches": [
-    {
-      "id": 560620,
-      "date": "2026-10-23T19:00:00Z",
-      "home": "Ipswich Town",
-      "away": "Nottingham",
-      "home_id": 349,
-      "away_id": 351,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 8,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        1,
-        1
-      ]
-    },
     {
       "id": 560614,
       "date": "2026-10-24T11:30:00Z",
@@ -34,7 +16,7 @@
       "away_id": 65,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": 8,
       "source": "football-data.org",
       "statistics_verified": false

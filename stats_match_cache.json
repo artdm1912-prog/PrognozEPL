@@ -1,7 +1,7 @@
 {
   "season_id": 103535,
   "league_id": 15,
-  "updated_at": "2026-10-24T09:52:49.244781+00:00",
+  "updated_at": "2026-10-25T10:14:04.142425+00:00",
   "matches": {
     "740533372": {
       "id": 740533372,
@@ -2270,6 +2270,134 @@
         "corners": [
           0,
           5
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "740745818": {
+      "id": 740745818,
+      "date": "2026-10-24 11:30:00",
+      "home_id": 142,
+      "away_id": 87,
+      "home": "Aston Villa",
+      "away": "Manchester City",
+      "goals": [
+        2,
+        1
+      ],
+      "stats": {
+        "xg": [
+          0.8,
+          2.08
+        ],
+        "shots": [
+          8,
+          15
+        ],
+        "shots_on_target": [
+          2,
+          7
+        ],
+        "corners": [
+          4,
+          7
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "740745795": {
+      "id": 740745795,
+      "date": "2026-10-24 14:00:00",
+      "home_id": 57,
+      "away_id": 128,
+      "home": "Arsenal",
+      "away": "Everton",
+      "goals": [
+        2,
+        0
+      ],
+      "stats": {
+        "xg": [
+          2.03,
+          0.94
+        ],
+        "shots": [
+          20,
+          8
+        ],
+        "shots_on_target": [
+          4,
+          3
+        ],
+        "corners": [
+          12,
+          3
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "998077651": {
+      "id": 998077651,
+      "date": "2026-10-24 14:00:00",
+      "home_id": 209,
+      "away_id": 146,
+      "home": "Coventry City",
+      "away": "Fulham",
+      "goals": [
+        0,
+        1
+      ],
+      "stats": {
+        "xg": [
+          1.37,
+          1.42
+        ],
+        "shots": [
+          13,
+          12
+        ],
+        "shots_on_target": [
+          2,
+          4
+        ],
+        "corners": [
+          4,
+          6
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "740745796": {
+      "id": 740745796,
+      "date": "2026-10-24 16:30:00",
+      "home_id": 136,
+      "away_id": 86,
+      "home": "Chelsea",
+      "away": "Tottenham Hotspur",
+      "goals": [
+        0,
+        2
+      ],
+      "stats": {
+        "xg": [
+          0.96,
+          1.54
+        ],
+        "shots": [
+          7,
+          15
+        ],
+        "shots_on_target": [
+          4,
+          4
+        ],
+        "corners": [
+          4,
+          6
         ]
       },
       "source": "footballdata.io",
