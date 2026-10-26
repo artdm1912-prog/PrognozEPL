@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-25T10:14:05.142173+00:00",
+  "updated_at": "2026-10-26T11:37:48.364597+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -7,62 +7,6 @@
   "statistics_verified": false,
   "note": "Real schedule/scores only. xG, shots, corners and injury reports are NOT retrieved.",
   "matches": [
-    {
-      "id": 560614,
-      "date": "2026-10-24T11:30:00Z",
-      "home": "Aston Villa",
-      "away": "Man City",
-      "home_id": 58,
-      "away_id": 65,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "IN_PLAY",
-      "matchday": 8,
-      "source": "football-data.org",
-      "statistics_verified": false
-    },
-    {
-      "id": 560616,
-      "date": "2026-10-24T14:00:00Z",
-      "home": "Arsenal",
-      "away": "Everton",
-      "home_id": 57,
-      "away_id": 62,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "TIMED",
-      "matchday": 8,
-      "source": "football-data.org",
-      "statistics_verified": false
-    },
-    {
-      "id": 560618,
-      "date": "2026-10-24T14:00:00Z",
-      "home": "Coventry City",
-      "away": "Fulham",
-      "home_id": 1076,
-      "away_id": 63,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "TIMED",
-      "matchday": 8,
-      "source": "football-data.org",
-      "statistics_verified": false
-    },
-    {
-      "id": 560617,
-      "date": "2026-10-24T16:30:00Z",
-      "home": "Chelsea",
-      "away": "Tottenham",
-      "home_id": 61,
-      "away_id": 73,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "TIMED",
-      "matchday": 8,
-      "source": "football-data.org",
-      "statistics_verified": false
-    },
     {
       "id": 560612,
       "date": "2026-10-25T14:00:00Z",
@@ -72,10 +16,14 @@
       "away_id": 397,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 8,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        2,
+        0
+      ]
     },
     {
       "id": 560613,
@@ -86,10 +34,14 @@
       "away_id": 67,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 8,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        0,
+        2
+      ]
     },
     {
       "id": 560615,
@@ -100,10 +52,14 @@
       "away_id": 1044,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 8,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        0,
+        3
+      ]
     },
     {
       "id": 560619,
@@ -114,10 +70,14 @@
       "away_id": 402,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 8,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        1,
+        1
+      ]
     },
     {
       "id": 560621,
@@ -128,10 +88,14 @@
       "away_id": 341,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 8,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        0,
+        0
+      ]
     },
     {
       "id": 560626,
