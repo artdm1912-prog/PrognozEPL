@@ -1,7 +1,7 @@
 {
   "season_id": 103535,
   "league_id": 15,
-  "updated_at": "2026-11-01T12:07:04.585833+00:00",
+  "updated_at": "2026-11-02T13:56:00.474434+00:00",
   "matches": {
     "740533372": {
       "id": 740533372,
@@ -2814,6 +2814,38 @@
         "corners": [
           7,
           7
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "740533368": {
+      "id": 740533368,
+      "date": "2026-11-01 16:30:00",
+      "home_id": 135,
+      "away_id": 57,
+      "home": "Liverpool",
+      "away": "Arsenal",
+      "goals": [
+        0,
+        1
+      ],
+      "stats": {
+        "xg": [
+          1.59,
+          1.21
+        ],
+        "shots": [
+          17,
+          10
+        ],
+        "shots_on_target": [
+          0,
+          3
+        ],
+        "corners": [
+          7,
+          4
         ]
       },
       "source": "footballdata.io",
