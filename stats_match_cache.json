@@ -1,7 +1,7 @@
 {
   "season_id": 103535,
   "league_id": 15,
-  "updated_at": "2026-11-02T13:56:00.474434+00:00",
+  "updated_at": "2026-11-03T13:04:23.035834+00:00",
   "matches": {
     "740533372": {
       "id": 740533372,
@@ -2846,6 +2846,38 @@
         "corners": [
           7,
           4
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "987721141": {
+      "id": 987721141,
+      "date": "2026-11-02 20:00:00",
+      "home_id": 141,
+      "away_id": 128,
+      "home": "Newcastle United",
+      "away": "Everton",
+      "goals": [
+        0,
+        1
+      ],
+      "stats": {
+        "xg": [
+          1.52,
+          1.72
+        ],
+        "shots": [
+          17,
+          16
+        ],
+        "shots_on_target": [
+          2,
+          5
+        ],
+        "corners": [
+          4,
+          5
         ]
       },
       "source": "footballdata.io",
