@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-03T13:04:23.957100+00:00",
+  "updated_at": "2026-11-04T13:20:49.364240+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -7,24 +7,6 @@
   "statistics_verified": false,
   "note": "Real schedule/scores only. xG, shots, corners and injury reports are NOT retrieved.",
   "matches": [
-    {
-      "id": 560622,
-      "date": "2026-11-02T20:00:00Z",
-      "home": "Newcastle",
-      "away": "Everton",
-      "home_id": 67,
-      "away_id": 62,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 9,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        0,
-        1
-      ]
-    },
     {
       "id": 560634,
       "date": "2026-11-06T20:00:00Z",
