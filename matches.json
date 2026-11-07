@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-06T13:17:40.658066+00:00",
+  "updated_at": "2026-11-07T11:57:59.574665+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -16,10 +16,14 @@
       "away_id": 1076,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 10,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        3,
+        1
+      ]
     },
     {
       "id": 560632,
@@ -284,6 +288,20 @@
       "season": "2026/27",
       "status": "TIMED",
       "matchday": 11,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560658,
+      "date": "2026-11-27T20:00:00Z",
+      "home": "Nottingham",
+      "away": "Chelsea",
+      "home_id": 351,
+      "away_id": 61,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 12,
       "source": "football-data.org",
       "statistics_verified": false
     }

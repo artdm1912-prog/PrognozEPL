@@ -1,7 +1,7 @@
 {
   "season_id": 103535,
   "league_id": 15,
-  "updated_at": "2026-11-06T13:17:39.897698+00:00",
+  "updated_at": "2026-11-07T11:57:58.503273+00:00",
   "matches": {
     "740533372": {
       "id": 740533372,
@@ -2878,6 +2878,38 @@
         "corners": [
           4,
           5
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "740533384": {
+      "id": 740533384,
+      "date": "2026-11-06 20:00:00",
+      "home_id": 128,
+      "away_id": 209,
+      "home": "Everton",
+      "away": "Coventry City",
+      "goals": [
+        3,
+        1
+      ],
+      "stats": {
+        "xg": [
+          1.86,
+          1.61
+        ],
+        "shots": [
+          16,
+          15
+        ],
+        "shots_on_target": [
+          7,
+          4
+        ],
+        "corners": [
+          2,
+          2
         ]
       },
       "source": "footballdata.io",
