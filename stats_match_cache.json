@@ -1,7 +1,7 @@
 {
   "season_id": 103535,
   "league_id": 15,
-  "updated_at": "2026-11-07T11:57:58.503273+00:00",
+  "updated_at": "2026-11-08T12:16:27.486600+00:00",
   "matches": {
     "740533372": {
       "id": 740533372,
@@ -2910,6 +2910,134 @@
         "corners": [
           2,
           2
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "1000023055": {
+      "id": 1000023055,
+      "date": "2026-11-07 12:30:00",
+      "home_id": 193,
+      "away_id": 86,
+      "home": "Leeds United",
+      "away": "Tottenham Hotspur",
+      "goals": [
+        1,
+        0
+      ],
+      "stats": {
+        "xg": [
+          1.59,
+          1.15
+        ],
+        "shots": [
+          16,
+          7
+        ],
+        "shots_on_target": [
+          4,
+          4
+        ],
+        "corners": [
+          6,
+          4
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "740745805": {
+      "id": 740745805,
+      "date": "2026-11-07 15:00:00",
+      "home_id": 57,
+      "away_id": 134,
+      "home": "Arsenal",
+      "away": "Hull City",
+      "goals": [
+        1,
+        0
+      ],
+      "stats": {
+        "xg": [
+          2.6,
+          0.81
+        ],
+        "shots": [
+          21,
+          7
+        ],
+        "shots_on_target": [
+          10,
+          2
+        ],
+        "corners": [
+          7,
+          4
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "1000455196": {
+      "id": 1000455196,
+      "date": "2026-11-07 15:00:00",
+      "home_id": 146,
+      "away_id": 141,
+      "home": "Fulham",
+      "away": "Newcastle United",
+      "goals": [
+        1,
+        1
+      ],
+      "stats": {
+        "xg": [
+          1.48,
+          1.18
+        ],
+        "shots": [
+          11,
+          9
+        ],
+        "shots_on_target": [
+          5,
+          5
+        ],
+        "corners": [
+          3,
+          3
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "1005642741": {
+      "id": 1005642741,
+      "date": "2026-11-07 17:30:00",
+      "home_id": 182,
+      "away_id": 87,
+      "home": "Nottingham Forest",
+      "away": "Manchester City",
+      "goals": [
+        3,
+        1
+      ],
+      "stats": {
+        "xg": [
+          1.23,
+          1.53
+        ],
+        "shots": [
+          11,
+          12
+        ],
+        "shots_on_target": [
+          5,
+          4
+        ],
+        "corners": [
+          3,
+          7
         ]
       },
       "source": "footballdata.io",

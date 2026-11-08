@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-07T11:57:59.574665+00:00",
+  "updated_at": "2026-11-08T12:16:28.235300+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -7,24 +7,6 @@
   "statistics_verified": false,
   "note": "Real schedule/scores only. xG, shots, corners and injury reports are NOT retrieved.",
   "matches": [
-    {
-      "id": 560634,
-      "date": "2026-11-06T20:00:00Z",
-      "home": "Everton",
-      "away": "Coventry City",
-      "home_id": 62,
-      "away_id": 1076,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 10,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        3,
-        1
-      ]
-    },
     {
       "id": 560632,
       "date": "2026-11-07T12:30:00Z",
@@ -34,10 +16,14 @@
       "away_id": 73,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 10,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        1,
+        0
+      ]
     },
     {
       "id": 560640,
@@ -48,10 +34,14 @@
       "away_id": 322,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 10,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        1,
+        0
+      ]
     },
     {
       "id": 560633,
@@ -62,10 +52,14 @@
       "away_id": 67,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 10,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        1,
+        1
+      ]
     },
     {
       "id": 560641,
@@ -76,10 +70,14 @@
       "away_id": 65,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 10,
       "source": "football-data.org",
-      "statistics_verified": false
+      "statistics_verified": false,
+      "actual": [
+        3,
+        1
+      ]
     },
     {
       "id": 560635,
@@ -298,6 +296,62 @@
       "away": "Chelsea",
       "home_id": 351,
       "away_id": 61,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 12,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560652,
+      "date": "2026-11-28T15:00:00Z",
+      "home": "Leeds United",
+      "away": "Coventry City",
+      "home_id": 341,
+      "away_id": 1076,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 12,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560655,
+      "date": "2026-11-28T15:00:00Z",
+      "home": "Man United",
+      "away": "Brentford",
+      "home_id": 66,
+      "away_id": 402,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 12,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560653,
+      "date": "2026-11-28T17:30:00Z",
+      "home": "Ipswich Town",
+      "away": "Aston Villa",
+      "home_id": 349,
+      "away_id": 58,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 12,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560656,
+      "date": "2026-11-29T12:00:00Z",
+      "home": "Everton",
+      "away": "Liverpool",
+      "home_id": 62,
+      "away_id": 64,
       "league": "АПЛ",
       "season": "2026/27",
       "status": "TIMED",
