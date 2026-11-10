@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-09T14:27:35.639145+00:00",
+  "updated_at": "2026-11-10T13:50:02.951245+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -7,24 +7,6 @@
   "statistics_verified": false,
   "note": "Real schedule/scores only. xG, shots, corners and injury reports are NOT retrieved.",
   "matches": [
-    {
-      "id": 560639,
-      "date": "2026-11-08T16:30:00Z",
-      "home": "Man United",
-      "away": "Aston Villa",
-      "home_id": 66,
-      "away_id": 58,
-      "league": "АПЛ",
-      "season": "2026/27",
-      "status": "FINISHED",
-      "matchday": 10,
-      "source": "football-data.org",
-      "statistics_verified": false,
-      "actual": [
-        4,
-        4
-      ]
-    },
     {
       "id": 560643,
       "date": "2026-11-21T12:30:00Z",
