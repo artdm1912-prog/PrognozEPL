@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-10T13:50:02.951245+00:00",
+  "updated_at": "2026-11-11T13:01:18.776944+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -284,6 +284,20 @@
       "season": "2026/27",
       "status": "TIMED",
       "matchday": 12,
+      "source": "football-data.org",
+      "statistics_verified": false
+    },
+    {
+      "id": 560668,
+      "date": "2026-12-01T20:00:00Z",
+      "home": "Coventry City",
+      "away": "Ipswich Town",
+      "home_id": 1076,
+      "away_id": 349,
+      "league": "АПЛ",
+      "season": "2026/27",
+      "status": "TIMED",
+      "matchday": 13,
       "source": "football-data.org",
       "statistics_verified": false
     }
