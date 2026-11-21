@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-20T14:26:37.665958+00:00",
+  "updated_at": "2026-11-21T13:46:03.899223+00:00",
   "season": "2026/27",
   "league": "АПЛ",
   "source": "https://api.football-data.org/v4/competitions/PL/matches",
@@ -16,7 +16,7 @@
       "away_id": 63,
       "league": "АПЛ",
       "season": "2026/27",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": 11,
       "source": "football-data.org",
       "statistics_verified": false
