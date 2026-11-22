@@ -1,7 +1,7 @@
 {
   "season_id": 103535,
   "league_id": 15,
-  "updated_at": "2026-11-21T13:46:02.451051+00:00",
+  "updated_at": "2026-11-22T13:39:52.052481+00:00",
   "matches": {
     "740533372": {
       "id": 740533372,
@@ -3198,6 +3198,230 @@
         "corners": [
           8,
           1
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "1004778873": {
+      "id": 1004778873,
+      "date": "2026-11-21 12:30:00",
+      "home_id": 87,
+      "away_id": 146,
+      "home": "Manchester City",
+      "away": "Fulham",
+      "goals": [
+        1,
+        1
+      ],
+      "stats": {
+        "xg": [
+          1.58,
+          0.83
+        ],
+        "shots": [
+          15,
+          5
+        ],
+        "shots_on_target": [
+          3,
+          4
+        ],
+        "corners": [
+          8,
+          6
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "740533379": {
+      "id": 740533379,
+      "date": "2026-11-21 15:00:00",
+      "home_id": 142,
+      "away_id": 140,
+      "home": "Aston Villa",
+      "away": "Sunderland",
+      "goals": [
+        0,
+        0
+      ],
+      "stats": {
+        "xg": [
+          2.2,
+          0.71
+        ],
+        "shots": [
+          19,
+          7
+        ],
+        "shots_on_target": [
+          7,
+          1
+        ],
+        "corners": [
+          7,
+          2
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "740745801": {
+      "id": 740745801,
+      "date": "2026-11-21 15:00:00",
+      "home_id": 136,
+      "away_id": 193,
+      "home": "Chelsea",
+      "away": "Leeds United",
+      "goals": [
+        1,
+        4
+      ],
+      "stats": {
+        "xg": [
+          1.41,
+          2.23
+        ],
+        "shots": [
+          14,
+          21
+        ],
+        "shots_on_target": [
+          3,
+          8
+        ],
+        "corners": [
+          3,
+          2
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "1001968432": {
+      "id": 1001968432,
+      "date": "2026-11-21 15:00:00",
+      "home_id": 209,
+      "away_id": 127,
+      "home": "Coventry City",
+      "away": "Crystal Palace",
+      "goals": [
+        3,
+        2
+      ],
+      "stats": {
+        "xg": [
+          1.53,
+          1.52
+        ],
+        "shots": [
+          11,
+          14
+        ],
+        "shots_on_target": [
+          7,
+          5
+        ],
+        "corners": [
+          4,
+          6
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "1005426555": {
+      "id": 1005426555,
+      "date": "2026-11-21 15:00:00",
+      "home_id": 132,
+      "away_id": 182,
+      "home": "AFC Bournemouth",
+      "away": "Nottingham Forest",
+      "goals": [
+        2,
+        0
+      ],
+      "stats": {
+        "xg": [
+          1.99,
+          1.56
+        ],
+        "shots": [
+          19,
+          19
+        ],
+        "shots_on_target": [
+          7,
+          1
+        ],
+        "corners": [
+          6,
+          4
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "1009534482": {
+      "id": 1009534482,
+      "date": "2026-11-21 15:00:00",
+      "home_id": 86,
+      "away_id": 191,
+      "home": "Tottenham Hotspur",
+      "away": "Ipswich Town",
+      "goals": [
+        2,
+        0
+      ],
+      "stats": {
+        "xg": [
+          2.19,
+          1.2
+        ],
+        "shots": [
+          18,
+          11
+        ],
+        "shots_on_target": [
+          9,
+          3
+        ],
+        "corners": [
+          8,
+          6
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "1005642731": {
+      "id": 1005642731,
+      "date": "2026-11-21 17:30:00",
+      "home_id": 141,
+      "away_id": 57,
+      "home": "Newcastle United",
+      "away": "Arsenal",
+      "goals": [
+        2,
+        2
+      ],
+      "stats": {
+        "xg": [
+          1.19,
+          1.48
+        ],
+        "shots": [
+          12,
+          13
+        ],
+        "shots_on_target": [
+          3,
+          4
+        ],
+        "corners": [
+          6,
+          3
         ]
       },
       "source": "footballdata.io",
