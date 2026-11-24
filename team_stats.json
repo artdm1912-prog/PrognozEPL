@@ -2,8 +2,8 @@
   "season": "2026/27",
   "league": "АПЛ",
   "source": "footballdata.io",
-  "source_matches": 109,
-  "updated_at": "2026-11-23T16:35:59.678560+00:00",
+  "source_matches": 110,
+  "updated_at": "2026-11-24T16:32:58.813883+00:00",
   "teams": {
     "57": {
       "id": 57,
@@ -588,29 +588,29 @@
     "128": {
       "id": 128,
       "name": "Everton",
-      "played": 10,
+      "played": 11,
       "home_played": 5,
-      "away_played": 5,
+      "away_played": 6,
       "totals": {
         "goals": {
           "for": 12,
-          "against": 10
+          "against": 14
         },
         "xg": {
-          "for": 16.17,
-          "against": 15.669999999999998
+          "for": 16.680000000000003,
+          "against": 18.159999999999997
         },
         "shots": {
-          "for": 142,
-          "against": 148
+          "for": 146,
+          "against": 169
         },
         "shots_on_target": {
-          "for": 50,
-          "against": 40
+          "for": 52,
+          "against": 47
         },
         "corners": {
-          "for": 46,
-          "against": 54
+          "for": 49,
+          "against": 60
         }
       },
       "home": {
@@ -661,72 +661,72 @@
         }
       },
       "away": {
-        "played": 5,
+        "played": 6,
         "totals": {
           "goals": {
             "for": 4,
-            "against": 5
+            "against": 9
           },
           "xg": {
-            "for": 7.46,
-            "against": 8.0
+            "for": 7.97,
+            "against": 10.49
           },
           "shots": {
-            "for": 65,
-            "against": 77
+            "for": 69,
+            "against": 98
           },
           "shots_on_target": {
-            "for": 25,
-            "against": 18
+            "for": 27,
+            "against": 25
           },
           "corners": {
-            "for": 27,
-            "against": 38
+            "for": 30,
+            "against": 44
           }
         },
         "per_match": {
           "goals": {
-            "for": 0.8,
-            "against": 1.0
+            "for": 0.6667,
+            "against": 1.5
           },
           "xg": {
-            "for": 1.492,
-            "against": 1.6
+            "for": 1.3283,
+            "against": 1.7483
           },
           "shots": {
-            "for": 13.0,
-            "against": 15.4
+            "for": 11.5,
+            "against": 16.3333
           },
           "shots_on_target": {
-            "for": 5.0,
-            "against": 3.6
+            "for": 4.5,
+            "against": 4.1667
           },
           "corners": {
-            "for": 5.4,
-            "against": 7.6
+            "for": 5.0,
+            "against": 7.3333
           }
         }
       },
       "per_match": {
         "goals": {
-          "for": 1.2,
-          "against": 1.0
+          "for": 1.0909,
+          "against": 1.2727
         },
         "xg": {
-          "for": 1.617,
-          "against": 1.567
+          "for": 1.5164,
+          "against": 1.6509
         },
         "shots": {
-          "for": 14.2,
-          "against": 14.8
+          "for": 13.2727,
+          "against": 15.3636
         },
         "shots_on_target": {
-          "for": 5.0,
-          "against": 4.0
+          "for": 4.7273,
+          "against": 4.2727
         },
         "corners": {
-          "for": 4.6,
-          "against": 5.4
+          "for": 4.4545,
+          "against": 5.4545
         }
       }
     },
@@ -1458,75 +1458,75 @@
     "189": {
       "id": 189,
       "name": "Brentford",
-      "played": 10,
-      "home_played": 5,
+      "played": 11,
+      "home_played": 6,
       "away_played": 5,
       "totals": {
         "goals": {
-          "for": 16,
+          "for": 20,
           "against": 11
         },
         "xg": {
-          "for": 14.05,
-          "against": 16.75
+          "for": 16.54,
+          "against": 17.26
         },
         "shots": {
-          "for": 131,
-          "against": 156
+          "for": 152,
+          "against": 160
         },
         "shots_on_target": {
-          "for": 36,
-          "against": 44
+          "for": 43,
+          "against": 46
         },
         "corners": {
-          "for": 39,
-          "against": 53
+          "for": 45,
+          "against": 56
         }
       },
       "home": {
-        "played": 5,
+        "played": 6,
         "totals": {
           "goals": {
-            "for": 10,
+            "for": 14,
             "against": 3
           },
           "xg": {
-            "for": 7.17,
-            "against": 7.68
+            "for": 9.66,
+            "against": 8.19
           },
           "shots": {
-            "for": 68,
-            "against": 71
+            "for": 89,
+            "against": 75
           },
           "shots_on_target": {
-            "for": 19,
-            "against": 17
+            "for": 26,
+            "against": 19
           },
           "corners": {
-            "for": 21,
-            "against": 32
+            "for": 27,
+            "against": 35
           }
         },
         "per_match": {
           "goals": {
-            "for": 2.0,
-            "against": 0.6
+            "for": 2.3333,
+            "against": 0.5
           },
           "xg": {
-            "for": 1.434,
-            "against": 1.536
+            "for": 1.61,
+            "against": 1.365
           },
           "shots": {
-            "for": 13.6,
-            "against": 14.2
+            "for": 14.8333,
+            "against": 12.5
           },
           "shots_on_target": {
-            "for": 3.8,
-            "against": 3.4
+            "for": 4.3333,
+            "against": 3.1667
           },
           "corners": {
-            "for": 4.2,
-            "against": 6.4
+            "for": 4.5,
+            "against": 5.8333
           }
         }
       },
@@ -1579,24 +1579,24 @@
       },
       "per_match": {
         "goals": {
-          "for": 1.6,
-          "against": 1.1
+          "for": 1.8182,
+          "against": 1.0
         },
         "xg": {
-          "for": 1.405,
-          "against": 1.675
+          "for": 1.5036,
+          "against": 1.5691
         },
         "shots": {
-          "for": 13.1,
-          "against": 15.6
+          "for": 13.8182,
+          "against": 14.5455
         },
         "shots_on_target": {
-          "for": 3.6,
-          "against": 4.4
+          "for": 3.9091,
+          "against": 4.1818
         },
         "corners": {
-          "for": 3.9,
-          "against": 5.3
+          "for": 4.0909,
+          "against": 5.0909
         }
       }
     },

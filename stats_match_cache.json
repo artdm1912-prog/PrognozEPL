@@ -1,7 +1,7 @@
 {
   "season_id": 103535,
   "league_id": 15,
-  "updated_at": "2026-11-23T16:35:59.675546+00:00",
+  "updated_at": "2026-11-24T16:32:58.809666+00:00",
   "matches": {
     "740533372": {
       "id": 740533372,
@@ -3486,6 +3486,38 @@
         "corners": [
           15,
           5
+        ]
+      },
+      "source": "footballdata.io",
+      "season": "2026/27"
+    },
+    "1005426588": {
+      "id": 1005426588,
+      "date": "2026-11-23 20:00:00",
+      "home_id": 189,
+      "away_id": 128,
+      "home": "Brentford",
+      "away": "Everton",
+      "goals": [
+        4,
+        0
+      ],
+      "stats": {
+        "xg": [
+          2.49,
+          0.51
+        ],
+        "shots": [
+          21,
+          4
+        ],
+        "shots_on_target": [
+          7,
+          2
+        ],
+        "corners": [
+          6,
+          3
         ]
       },
       "source": "footballdata.io",
